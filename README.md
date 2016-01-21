@@ -450,4 +450,254 @@ We can use the spread operator to pass an array of values to be used as paramete
 Math.max(...[-1, 100, 9001, -32]) // 9001
 ```
 
+## Classes
 
+Prior to ES6, we implemented Classes by creating a constructor function and adding properties by extending the prototype:
+
+```javascript
+function Person(name, age, gender) {
+    this.name   = name;
+    this.age    = age;
+    this.gender = gender;
+}
+
+Person.prototype.incrementAge = function () {
+    return this.age += 1;
+};
+```
+
+And created extended classes by the following:
+
+```javascript
+function Personal(name, age, gender, occupation, hobby) {
+    Person.call(this, name, age, gender);
+    this.occupation = occupation;
+    this.hobby = hobby;
+}
+
+Personal.prototype = Object.create(Person.prototype);
+Personal.prototype.constructor = Personal;
+Personal.prototype.incrementAge = function () {
+    return Person.prototype.incrementAge.call(this) += 1;
+}
+```
+
+ES6 provides much needed syntactic sugar for doing this under the hood. We can create Classes directly:
+
+```javascript
+class Person {
+    constructor(name, age, gender) {
+        this.name   = name;
+        this.age    = age;
+        this.gender = gender;
+    }
+    
+    incrementAge() {
+      this.age += 1;
+    }
+}
+```
+
+And extend them using the **extends** keyword:
+
+```javascript
+class Personal extends Person {
+    constructor(name, age, gender, occupation, hobby) {
+      super(name, age, gender);
+      this.occupation = occupation;
+      this.hobby = hobby;
+    }
+    
+    incrementAge() {
+      super.incrementAge();
+      this.age += 20;
+      console.log(this.age);
+    }
+}
+```
+
+> **Best Practice**: While the syntax for creating classes in ES6 obscure how implementation and prototypes work under the hood, it is a good feature for beginners and allows us to write cleaner code.
+
+## Symbols
+
+Symbols have existed prior to ES6, but now we have a public interface to using them directly. One such example is to create unique property keys which will never collide:
+
+```javascript
+const key = Symbol();
+const keyTwo = Symbol();
+const object = {};
+
+object.key = 'Such magic.';
+object.keyTwo = 'Much Uniqueness'
+
+// Two Symbols will never have the same value
+>> key === keyTwo 
+>> false
+```
+
+## Maps
+
+**Maps** is a much needed data structure in JavaScript. Prior to ES6, we created **hash** maps through objects:
+
+```javascript
+var map = new Object();
+map[key1] = 'value1';
+map[key2] = 'value2';
+```
+
+However, this does not protect us from accidentally overriding functions with specific property names:
+
+```javascript
+> getOwnProperty({ hasOwnProperty: 'Hah, overwritten'}, 'Pwned');
+> TypeError: Propery 'hasOwnProperty' is not a function
+```
+
+Actual **Maps** allow us to **set**, **get** and **search** for values (and much more).
+
+```javascript
+let map = new Map();
+> map.set('name', 'david');
+> map.get('name'); // david
+> map.has('name'); // true
+```
+
+The most amazing part of Maps is that we are no longer limited to just using strings. We can now use any type as a key, and it will not be type-casted to a string.
+
+```javascript
+let map = new Map([
+    ['name', 'david'],
+    [true, 'false'],
+    [1, 'one'],
+    [{}, 'object'],
+    [function () {}, 'function']
+]);
+
+for (let key of map.keys()) {
+    console.log(typeof key);
+    // > string, boolean, number, object, function
+};
+```
+
+We can also iterate over maps using **.entries( )**:
+
+```javascript
+for (let [key, value] of map.entries()) {
+  console.log(key, value);
+}
+```
+
+## WeakMaps
+
+In order to store private data in < ES5, we had various ways of doing this. One such method was using naming conventions: 
+
+```javascript
+class Person {
+    constructor(age) {
+        this._age = age;
+    }
+    
+    _incrementAge() {
+      this._age += 1;
+    }
+}
+```
+
+But naming conventions can cause confusion in a codebase and are not always going to be upheld. Instead, we can use WeakMaps to store our values:
+
+```javascript
+let _age = new WeakMap();
+class Person { 
+  constructor(age) {
+    _age.set(this, age);
+  }
+
+  incrementAge() {
+    let age = _age.get(this);
+      if(age > 50) {
+        console.log('Midlife crisis');
+      }
+  }
+}
+```
+
+The cool thing about using WeakMaps to store our private data is that their keys do not give away the property names, which can be seen by using **Reflect.ownKeys()**:
+
+```javascript
+> const person = new Person(50);
+> person.incrementAge(); // 'Midlife crisis'
+> Reflect.ownKeys(person); // []
+```
+
+## Promises
+
+Promises allow us to turn our horizontal code (callback hell):
+
+```javascript
+func1(function (value1) {
+  func2(value1, function(value2) {
+    func3(value2, function(value3) {
+      func4(value3, function(value4) {
+        func5(value4, function(value5) {
+          // Do something with value 5
+        });
+      });
+    });
+  });
+});
+```
+
+Into vertical code:
+
+```javascript
+func1(value1)
+  .then(func2(value1) { })
+  .then(func3(value2) { })
+  .then(func4(value3) { })
+  .then(func5(value4) { 
+    // Do something with value 5 
+  });
+```
+
+Prior to ES6, we used [bluebird](https://github.com/petkaantonov/bluebird) or [Q](https://github.com/kriskowal/q). Now we have Promises natively:
+
+```javascript
+new Promise((resolve, reject) => 
+    reject(new Error('Failed to fufill Promise')))
+    .catch(reason => console.log(reason));
+```
+
+Where we have two handlers, **resolve** (a function called when the Promise is **fufilled**) and **rejected** (a function called when the Promise is **rejected**). 
+
+> **Benefits of Promises**: Error Handling using a bunch of nested callbacks can get chaotic. Using Promises, we have a clear path to bubbling errors up and handling them appropriately. Moreover, the value of a Promise after it has been resolved/rejected is immutable - it will never change. 
+
+Here is a practical example of using Promises:
+
+```javascript
+var fetchJSON = function(url) {  
+  return new Promise((resolve, reject) => {
+    $.getJSON(url)
+      .done((json) => resolve(json))
+      .fail((xhr, status, err) => reject(status + err.message));
+  });
+}
+```
+
+We can also **parallelize** Promises to handle an array of asynchronous operations by using **Promise.all( )**: 
+
+```javascript
+var urls = [ 
+  'http://www.api.com/items/1234',
+  'http://www.api.com/items/4567'
+];
+
+var urlPromises = urls.map(fetchJSON);
+
+Promise.all(urlPromises)  
+  .then(function(results) {
+     results.forEach(function(data) {
+     });
+  })
+  .catch(function(err) {
+    console.log("Failed: ", err);
+  });
+```
