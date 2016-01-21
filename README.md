@@ -1,6 +1,6 @@
 # es6-cheatsheet
 
-> A cheatsheet containing ES6 tips, tricks and code snippet examples for your day to day workflow. Contributions are welcome!
+A cheatsheet containing ES6 tips, tricks, best practices and code snippet examples for your day to day workflow. Contributions are welcome!
 
 ## var versus let / const
 
@@ -262,7 +262,7 @@ console.log(father); // 'anakin'
 
 ## Modules
 
-Prior to ES6, we used libraries such as **Browserify** to create modules on the client-side, and **require** in **Node.js**. With ES6, we can now directly use modules of all types (AMD and CommonJS).
+Prior to ES6, we used libraries such as [Browserify](http://browserify.org/) to create modules on the client-side, and [require](https://nodejs.org/api/modules.html#modules_module_require_id) in **Node.js**. With ES6, we can now directly use modules of all types (AMD and CommonJS).
 
 ### Exporting in CommonJS
 
