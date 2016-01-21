@@ -120,3 +120,142 @@ const squares = arr.map(x => x * x); // Arrow Function for terser implementation
 ```
 
 > **Best Practice**: Use **Arrow Functions** in place of function expressions when possible.
+
+## Strings
+
+With ES6, the standard library has grown immensely. Along with these changes are new methods which can be used on strings, such as **.includes()** and **.repeat()**.
+
+### .includes()
+
+```javascript
+var string = 'food';
+var substring = 'foo';
+console.log(string.indexOf(substring) > -1);
+```
+
+Instead of checking for a return value `> -1` to denote string containment, we can simply use **.includes()** which will return a boolean:
+
+```javascript
+const string = 'food';
+const substring = 'foo';
+console.log(string.includes(substring)); // true
+```
+
+### .repeat()
+
+```javascript
+function repeat(string, count) {
+    var strings = [];
+    while(strings.length < count) {
+        strings.push(string);
+    }
+    return strings.join('');
+}
+```
+
+In ES6, we now have access to a terser implementation:
+
+```javascript
+// String.repeat(numberOfRepetitions)
+'meow'.repeat(3); // 'meowmeowmeow'
+```
+
+### Template Literals
+
+Using **Template Literals**, we can now construct strings that have special characters in them without needing to escape them explicitly.
+
+```javascript
+var text = "This string contains \"double quotes\" which are escaped."
+```
+
+```javascript
+let text = `This string contains "double quotes" which are escaped.`
+```
+
+**Template Literals** also support interpolation, which makes the task of concatenating strings and values:
+
+```javascript
+var name = 'Tiger';
+var age = 13;
+console.log('My cat is named ' + name + ' and is ' + age + ' years old.');
+```
+
+Much simpler:
+
+```javascript
+const name = 'Tiger';
+const age = 13;
+console.log(`My cat is named ${name} and is ${age} years old.`);
+```
+
+In ES5, we handled new lines as follows:
+
+```javascript
+var text = (
+  'cat\n' +
+  'dog\n' +
+  'nickelodeon'
+)
+```
+
+Or:
+
+```javascript
+var text = [
+  'cat',
+  'dog',
+  'nickelodeon'
+].join('\n')
+```
+
+**Template Literals** will preserve new lines for us without having to explicitly place them in:
+
+```javascript
+var text = (
+  `cat
+  dog
+  nickelodeon`
+)
+```
+
+**Template Literals** can accept expressions, as well:
+
+```javascript
+let today = new Date()
+let text = `The time and date is ${today.toLocaleString()}`
+```
+
+## Destructuring
+
+Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convient syntax. 
+
+### Destructuring Arrays
+
+```javascript
+var arr = [1, 2, 3, 4];
+var a = arr[0];
+var b = arr[1];
+var c = arr[2];
+var d = arr[3];
+```
+
+```javascript
+var [a, b, c, d] = [1, 2, 3, 4];
+console.log(a); // 1
+console.log(b); // 2
+```
+
+### Destructuring Objects
+
+```javascript
+var luke = { occupation: 'jedi', father: 'anakin' }
+var occupation = luke.occupation; // 'jedi'
+var father = luke.father; // 'anakin'
+```
+
+```javascript
+var luke = { occupation: 'jedi', father: 'anakin' }
+var {occupation, father} = luke;
+console.log(occupation); // 'jedi'
+console.log(father); // 'anakin'
+```
