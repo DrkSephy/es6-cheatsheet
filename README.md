@@ -259,3 +259,111 @@ var {occupation, father} = luke;
 console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
 ```
+
+## Modules
+
+Prior to ES6, we used libraries such as **Browserify** to create modules on the client-side, and **require** in **Node.js**. With ES6, we can now directly use modules of all types (AMD and CommonJS).
+
+### Exporting in CommonJS
+
+```javascript
+module.exports = 1
+module.exports = { foo: 'bar' }
+module.exports = ['foo', 'bar']
+module.exports = function bar () {}
+```
+
+### Exporting in ES6
+
+With ES6, we have various flavors of exporting. We can perform **Named Exports**:
+
+```javascript
+export var name = 'David';
+export var age  = 25;​​
+```
+
+As well as **exporting a list** of objects:
+
+```javascript
+function sumTwo(a, b) {
+    return a + b;
+}
+
+function sumThree(a, b) {
+    return a + b + c;
+}
+
+export { sumTwo, sumThree };
+```
+
+We can also export a value simply by using the **export** keyword:
+
+```javascript
+export function sumTwo(a, b) {
+    return a + b;
+}
+
+export function sumThree(a, b) {
+    return a + b + c;
+}
+```
+
+And lastly, we can **export default bindings**:
+
+```javascript
+function sumTwo(a, b) {
+    return a + b;
+}
+
+function sumThree(a, b) {
+    return a + b + c;
+}
+
+var api = {
+    sumTwo  : sumTwo,
+    sumThree: sumThree
+}
+
+export default api
+```
+
+> **Best Practices**: Always use the **export default** method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. Moreso, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allows us to interpolate between CommonJS and ES6 modules.
+
+### Importing in ES6
+
+ES6 provides us with various flavors of importing. We can import an entire file:
+
+```javascript
+import `underscore`
+```
+
+> It is important to note that simply **importing an entire file will execute all code at the top level of that file**.
+
+We can also use destructuring to import a list of values from a file:
+
+```javascript
+import { sumTwo, sumThree } from 'math/addition'
+```
+
+Similar to Python, we have named imports:
+
+```javascript
+import { 
+  sumTwo as addTwoNumbers, 
+  sumThree as sumThreeNumbers} from
+} from 'math/addition'
+```
+
+And lastly, we can **import all the things**:
+
+```javascript
+import * as util from 'math/addition'
+```
+
+> **Note**: Values that are exported are **bindings**, not references. Therefore, changing the binding of a variable in one module will affect the value within the exported module. Avoid changing the public interface of these exported values.
+
+
+
+
+
+
