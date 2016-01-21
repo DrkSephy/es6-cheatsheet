@@ -410,6 +410,7 @@ function logArguments(...args) {
         console.log(arg);
     }
 }
+```
 
 ### Named Parameters
 
