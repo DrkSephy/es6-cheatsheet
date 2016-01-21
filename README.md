@@ -125,7 +125,7 @@ const squares = arr.map(x => x * x); // Arrow Function for terser implementation
 
 With ES6, the standard library has grown immensely. Along with these changes are new methods which can be used on strings, such as **.includes()** and **.repeat()**.
 
-### .includes()
+### .includes( )
 
 ```javascript
 var string = 'food';
@@ -141,7 +141,7 @@ const substring = 'foo';
 console.log(string.includes(substring)); // true
 ```
 
-### .repeat()
+### .repeat( )
 
 ```javascript
 function repeat(string, count) {
@@ -362,8 +362,92 @@ import * as util from 'math/addition'
 
 > **Note**: Values that are exported are **bindings**, not references. Therefore, changing the binding of a variable in one module will affect the value within the exported module. Avoid changing the public interface of these exported values.
 
+## Parameters
 
+In ES5, we had varying ways to handle functions which needed **default values**, **indefinite arguments**, and **named parameters**. With ES6, we can accomplish all of this and more using more concise syntax.
 
+### Default Parameters
 
+```javascript
+function addTwoNumbers(x, y) {
+    x = x || 0;
+    y = y || 0;
+    return x + y;
+}
+```
+
+In ES6, we can simply supply default values for parameters in a function:
+
+```javascript
+function addTwoNumbers(x=0, y=0) {
+    return x + y;
+}
+```
+
+```javascript
+addTwoNumbers(2, 4); // 6
+addTwoNumbers(2); // 2
+addTwoNumbers(); // 0
+```
+
+### Rest Parameters
+
+In ES5, we handled an indefinite number of arguments like so:
+
+```javascript
+function logArguments() {
+    for (var i=0; i < arguments.length; i++) {
+        console.log(arguments[i]);
+    }
+}
+```
+
+Using the **rest** operator, we can pass in an indefinite amount of arguments:
+
+```javascript
+function logArguments(...args) {
+    for (let arg of args) {
+        console.log(arg);
+    }
+}
+
+### Named Parameters
+
+One of the patterns in ES5 to handle named parameters was to use the **options object** pattern, adopted from jQuery.
+
+```javascript
+function initializeCanvas(options) {
+    var height = options.height || 600;
+    var width  = options.width  || 400;
+    var lineStroke = options.lineStroke || 'black';
+}
+```
+
+We can achieve the same functionality using destructuring as a formal parameter to a function:
+
+```javascript
+function initializeCanvas(
+    { height=600, width=400, lineStroke='black'}) {
+        ...
+    }
+    // Use variables height, width, lineStroke here
+```
+
+If we want to make the entire value optional, we can do so by destructuring an empty object:
+
+```javascript
+function initializeCanvas(
+    { height=600, width=400, lineStroke='black'} = {}) {
+        ...
+    }
+```
+
+### Spread Operator
+
+We can use the spread operator to pass an array of values to be used as parameters to a function:
+
+```javascript
+Math.max(...[-1, 100, 9001, -32]) // 9001
+```
 
 
