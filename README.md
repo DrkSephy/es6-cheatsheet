@@ -361,25 +361,39 @@ import `underscore`
 
 > It is important to note that simply **importing an entire file will execute all code at the top level of that file**.
 
-We can also use destructuring to import a list of values from a file:
+Similar to Python, we have named imports:
 
 ```javascript
 import { sumTwo, sumThree } from 'math/addition'
 ```
 
-Similar to Python, we have named imports:
+We can also rename the named imports:
 
 ```javascript
-import { 
-  sumTwo as addTwoNumbers, 
+import {
+  sumTwo as addTwoNumbers,
   sumThree as sumThreeNumbers
 } from 'math/addition'
 ```
 
-And lastly, we can **import all the things**:
+In addition, we can **import all the things** (also called namespace import):
 
 ```javascript
 import * as util from 'math/addition'
+```
+
+Lastly, we can use destructuring to import a list of values from a file:
+
+```javascript
+import * as addtionUtil from 'math/addtion';
+const { sumTwo, sumThree } = addtionUtil;
+```
+
+or when we are importing the default object but we want to grab some of the functions on the object:
+
+```javascript
+import React from 'react';
+const { Component, PropTypes } = React;
 ```
 
 > **Note**: Values that are exported are **bindings**, not references. Therefore, changing the binding of a variable in one module will affect the value within the exported module. Avoid changing the public interface of these exported values.
