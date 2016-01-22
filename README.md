@@ -19,7 +19,7 @@ A cheatsheet containing ES6 tips, tricks, best practices and code snippet exampl
 
 ## var versus let / const
 
-> Besides var, we now have access to two new identifiers for storing values - **let** and **const**. Unlike **var**, **let** and **const** statements are not hoisted to the top of their enclosing scope. 
+> Besides var, we now have access to two new identifiers for storing values - **let** and **const**. Unlike **var**, **let** and **const** statements are not hoisted to the top of their enclosing scope.
 
 An example of using var:
 
@@ -54,7 +54,7 @@ function getFood(food) {
 getFood(false); // 'Meow Mix'
 ```
 
-This change in behavior highlights that we need to be careful when refactoring legacy code which uses **var**. Blindly replacing instances of **var** with **let** may lead to unexpected behavior. 
+This change in behavior highlights that we need to be careful when refactoring legacy code which uses **var**. Blindly replacing instances of **var** with **let** may lead to unexpected behavior.
 
 > **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables that will be immutable over time.
 
@@ -76,7 +76,7 @@ Using ES6 Blocks:
 ```javascript
 {  
     let food = 'Meow Mix';
-} 
+}
 console.log(food); // Reference Error
 ```
 
@@ -121,11 +121,11 @@ function Person(name) {
 }
 
 Person.prototype.prefixName = function (arr) {
-    return arr.map((character) => this.name + character); 
+    return arr.map((character) => this.name + character);
 }
 ```
 
-> **Best Practice**: Use **Arrow Functions** whenever you need to preserve the lexical value of **this**. 
+> **Best Practice**: Use **Arrow Functions** whenever you need to preserve the lexical value of **this**.
 
 Arrow Functions are also more concise when used in function expressions which simply return a value:
 
@@ -250,7 +250,7 @@ let text = `The time and date is ${today.toLocaleString()}`
 
 ## Destructuring
 
-Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convenient syntax. 
+Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convenient syntax.
 
 ### Destructuring Arrays
 
@@ -314,7 +314,7 @@ function sumTwo(a, b) {
     return a + b;
 }
 
-function sumThree(a, b) {
+function sumThree(a, b, c) {
     return a + b + c;
 }
 
@@ -328,7 +328,7 @@ export function sumTwo(a, b) {
     return a + b;
 }
 
-export function sumThree(a, b) {
+export function sumThree(a, b, c) {
     return a + b + c;
 }
 ```
@@ -340,7 +340,7 @@ function sumTwo(a, b) {
     return a + b;
 }
 
-function sumThree(a, b) {
+function sumThree(a, b, c) {
     return a + b + c;
 }
 
@@ -373,8 +373,8 @@ import { sumTwo, sumThree } from 'math/addition'
 Similar to Python, we have named imports:
 
 ```javascript
-import { 
-  sumTwo as addTwoNumbers, 
+import {
+  sumTwo as addTwoNumbers,
   sumThree as sumThreeNumbers
 } from 'math/addition'
 ```
@@ -521,7 +521,7 @@ class Person {
         this.age    = age;
         this.gender = gender;
     }
-    
+
     incrementAge() {
       this.age += 1;
     }
@@ -537,7 +537,7 @@ class Personal extends Person {
       this.occupation = occupation;
       this.hobby = hobby;
     }
-    
+
     incrementAge() {
       super.incrementAge();
       this.age += 20;
@@ -563,7 +563,7 @@ object[key] = 'Such magic.';
 object[keyTwo] = 'Much Uniqueness'
 
 // Two Symbols will never have the same value
->> key === keyTwo 
+>> key === keyTwo
 >> false
 ```
 
@@ -624,14 +624,14 @@ for (let [key, value] of map.entries()) {
 
 ## WeakMaps
 
-In order to store private data in < ES5, we had various ways of doing this. One such method was using naming conventions: 
+In order to store private data in < ES5, we had various ways of doing this. One such method was using naming conventions:
 
 ```javascript
 class Person {
     constructor(age) {
         this._age = age;
     }
-    
+
     _incrementAge() {
       this._age += 1;
     }
@@ -642,7 +642,7 @@ But naming conventions can cause confusion in a codebase and are not always goin
 
 ```javascript
 let _age = new WeakMap();
-class Person { 
+class Person {
   constructor(age) {
     _age.set(this, age);
   }
@@ -692,22 +692,22 @@ func1(value1)
   .then(func2)
   .then(func3)
   .then(func4)
-  .then(func5, value5 => { 
-    // Do something with value 5 
+  .then(func5, value5 => {
+    // Do something with value 5
   });
 ```
 
 Prior to ES6, we used [bluebird](https://github.com/petkaantonov/bluebird) or [Q](https://github.com/kriskowal/q). Now we have Promises natively:
 
 ```javascript
-new Promise((resolve, reject) => 
+new Promise((resolve, reject) =>
     reject(new Error('Failed to fulfill Promise')))
     .catch(reason => console.log(reason));
 ```
 
-Where we have two handlers, **resolve** (a function called when the Promise is **fulfilled**) and **rejected** (a function called when the Promise is **rejected**). 
+Where we have two handlers, **resolve** (a function called when the Promise is **fulfilled**) and **rejected** (a function called when the Promise is **rejected**).
 
-> **Benefits of Promises**: Error Handling using a bunch of nested callbacks can get chaotic. Using Promises, we have a clear path to bubbling errors up and handling them appropriately. Moreover, the value of a Promise after it has been resolved/rejected is immutable - it will never change. 
+> **Benefits of Promises**: Error Handling using a bunch of nested callbacks can get chaotic. Using Promises, we have a clear path to bubbling errors up and handling them appropriately. Moreover, the value of a Promise after it has been resolved/rejected is immutable - it will never change.
 
 Here is a practical example of using Promises:
 
@@ -721,10 +721,10 @@ var fetchJSON = function(url) {
 }
 ```
 
-We can also **parallelize** Promises to handle an array of asynchronous operations by using **Promise.all( )**: 
+We can also **parallelize** Promises to handle an array of asynchronous operations by using **Promise.all( )**:
 
 ```javascript
-var urls = [ 
+var urls = [
   'http://www.api.com/items/1234',
   'http://www.api.com/items/4567'
 ];
