@@ -232,7 +232,7 @@ var text = [
 **Template Literals** will preserve new lines for us without having to explicitly place them in:
 
 ```javascript
-var text = (
+let text = (
   `cat
   dog
   nickelodeon`
@@ -263,7 +263,7 @@ var d = arr[3];
 ```
 
 ```javascript
-var [a, b, c, d] = [1, 2, 3, 4];
+let [a, b, c, d] = [1, 2, 3, 4];
 console.log(a); // 1
 console.log(b); // 2
 ```
@@ -277,8 +277,8 @@ var father = luke.father; // 'anakin'
 ```
 
 ```javascript
-var luke = { occupation: 'jedi', father: 'anakin' }
-var {occupation, father} = luke;
+let luke = { occupation: 'jedi', father: 'anakin' }
+let {occupation, father} = luke;
 console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
 ```
@@ -303,8 +303,8 @@ module.exports = function bar () {}
 With ES6, we have various flavors of exporting. We can perform **Named Exports**:
 
 ```javascript
-export var name = 'David';
-export var age  = 25;​​
+export let name = 'David';
+export let age  = 25;​​
 ```
 
 As well as **exporting a list** of objects:
@@ -344,7 +344,7 @@ function sumThree(a, b) {
     return a + b + c;
 }
 
-var api = {
+let api = {
     sumTwo  : sumTwo,
     sumThree: sumThree
 }
