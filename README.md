@@ -58,6 +58,8 @@ This change in behavior highlights that we need to be careful when refactoring l
 
 > **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables that will be immutable over time.
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
 ## Replacing IIFEs with Blocks
 
 > A common use of **Immediately Invoked Function Expressions** is to enclose values within its scope. In ES6, we now have the ability to create block-based scopes and therefore are not limited purely to function-based scope.
@@ -77,6 +79,8 @@ Using ES6 Blocks:
 } 
 console.log(food); // Reference Error
 ```
+
+<sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Arrow Functions
 
@@ -135,6 +139,8 @@ const squares = arr.map(x => x * x); // Arrow Function for terser implementation
 ```
 
 > **Best Practice**: Use **Arrow Functions** in place of function expressions when possible.
+
+<sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Strings
 
@@ -240,6 +246,8 @@ let today = new Date()
 let text = `The time and date is ${today.toLocaleString()}`
 ```
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
 ## Destructuring
 
 Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convient syntax. 
@@ -274,6 +282,8 @@ var {occupation, father} = luke;
 console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
 ```
+
+<sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Modules
 
@@ -377,6 +387,8 @@ import * as util from 'math/addition'
 
 > **Note**: Values that are exported are **bindings**, not references. Therefore, changing the binding of a variable in one module will affect the value within the exported module. Avoid changing the public interface of these exported values.
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
 ## Parameters
 
 In ES5, we had varying ways to handle functions which needed **default values**, **indefinite arguments**, and **named parameters**. With ES6, we can accomplish all of this and more using more concise syntax.
@@ -466,6 +478,8 @@ We can use the spread operator to pass an array of values to be used as paramete
 Math.max(...[-1, 100, 9001, -32]) // 9001
 ```
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
 ## Classes
 
 Prior to ES6, we implemented Classes by creating a constructor function and adding properties by extending the prototype:
@@ -534,6 +548,8 @@ class Personal extends Person {
 
 > **Best Practice**: While the syntax for creating classes in ES6 obscure how implementation and prototypes work under the hood, it is a good feature for beginners and allows us to write cleaner code.
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
 ## Symbols
 
 Symbols have existed prior to ES6, but now we have a public interface to using them directly. One such example is to create unique property keys which will never collide:
@@ -550,6 +566,8 @@ object.keyTwo = 'Much Uniqueness'
 >> key === keyTwo 
 >> false
 ```
+
+<sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Maps
 
@@ -602,6 +620,8 @@ for (let [key, value] of map.entries()) {
 }
 ```
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
 ## WeakMaps
 
 In order to store private data in < ES5, we had various ways of doing this. One such method was using naming conventions: 
@@ -643,6 +663,8 @@ The cool thing about using WeakMaps to store our private data is that their keys
 > person.incrementAge(); // 'Midlife crisis'
 > Reflect.ownKeys(person); // []
 ```
+
+<sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Promises
 
