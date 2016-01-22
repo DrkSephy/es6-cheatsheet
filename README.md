@@ -250,7 +250,7 @@ let text = `The time and date is ${today.toLocaleString()}`
 
 ## Destructuring
 
-Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convient syntax. 
+Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convenient syntax. 
 
 ### Destructuring Arrays
 
