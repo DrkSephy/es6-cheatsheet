@@ -688,10 +688,10 @@ Into vertical code:
 
 ```javascript
 func1(value1)
-  .then(func2(value1) { })
-  .then(func3(value2) { })
-  .then(func4(value3) { })
-  .then(func5(value4) { 
+  .then(func2)
+  .then(func3)
+  .then(func4)
+  .then(func5, value5 => { 
     // Do something with value 5 
   });
 ```
