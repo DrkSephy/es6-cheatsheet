@@ -648,7 +648,8 @@ class Person {
   }
 
   incrementAge() {
-    let age = _age.get(this);
+    let age = _age.get(this) + 1;
+    _age.set(this, age);
       if(age > 50) {
         console.log('Midlife crisis');
       }
