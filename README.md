@@ -375,7 +375,7 @@ Similar to Python, we have named imports:
 ```javascript
 import { 
   sumTwo as addTwoNumbers, 
-  sumThree as sumThreeNumbers} from
+  sumThree as sumThreeNumbers
 } from 'math/addition'
 ```
 
