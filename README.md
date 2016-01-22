@@ -700,11 +700,11 @@ Prior to ES6, we used [bluebird](https://github.com/petkaantonov/bluebird) or [Q
 
 ```javascript
 new Promise((resolve, reject) => 
-    reject(new Error('Failed to fufill Promise')))
+    reject(new Error('Failed to fulfill Promise')))
     .catch(reason => console.log(reason));
 ```
 
-Where we have two handlers, **resolve** (a function called when the Promise is **fufilled**) and **rejected** (a function called when the Promise is **rejected**). 
+Where we have two handlers, **resolve** (a function called when the Promise is **fulfilled**) and **rejected** (a function called when the Promise is **rejected**). 
 
 > **Benefits of Promises**: Error Handling using a bunch of nested callbacks can get chaotic. Using Promises, we have a clear path to bubbling errors up and handling them appropriately. Moreover, the value of a Promise after it has been resolved/rejected is immutable - it will never change. 
 
