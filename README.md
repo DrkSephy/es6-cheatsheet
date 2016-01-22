@@ -84,7 +84,7 @@ console.log(food); // Reference Error
 
 ## Arrow Functions
 
-Often times we have nested functions in which we would like to preserve the context of **this** from it's lexical scope. An example is shown below:
+Often times we have nested functions in which we would like to preserve the context of **this** from its lexical scope. An example is shown below:
 
 ```javascript
 function Person(name) {
@@ -352,7 +352,7 @@ var api = {
 export default api
 ```
 
-> **Best Practices**: Always use the **export default** method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. Moreso, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allows us to interpolate between CommonJS and ES6 modules.
+> **Best Practices**: Always use the **export default** method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. Moreso, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allow ourselves to interpolate between CommonJS and ES6 modules.
 
 ### Importing in ES6
 
@@ -546,7 +546,7 @@ class Personal extends Person {
 }
 ```
 
-> **Best Practice**: While the syntax for creating classes in ES6 obscure how implementation and prototypes work under the hood, it is a good feature for beginners and allows us to write cleaner code.
+> **Best Practice**: While the syntax for creating classes in ES6 obscures how implementation and prototypes work under the hood, it is a good feature for beginners and allows us to write cleaner code.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
