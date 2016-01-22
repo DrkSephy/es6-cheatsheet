@@ -345,8 +345,8 @@ function sumThree(a, b) {
 }
 
 let api = {
-    sumTwo  : sumTwo,
-    sumThree: sumThree
+    sumTwo,
+    sumThree
 }
 
 export default api
