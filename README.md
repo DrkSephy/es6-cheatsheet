@@ -231,11 +231,9 @@ var text = [
 **Template Literals** will preserve new lines for us without having to explicitly place them in:
 
 ```javascript
-let text = (
-  `cat
-  dog
-  nickelodeon`
-)
+let text = `cat
+dog
+nickelodeon`
 ```
 
 **Template Literals** can accept expressions, as well:
