@@ -559,8 +559,8 @@ const key = Symbol();
 const keyTwo = Symbol();
 const object = {};
 
-object.key = 'Such magic.';
-object.keyTwo = 'Much Uniqueness'
+object[key] = 'Such magic.';
+object[keyTwo] = 'Much Uniqueness'
 
 // Two Symbols will never have the same value
 >> key === keyTwo 
