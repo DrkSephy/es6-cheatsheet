@@ -43,7 +43,6 @@ However, observe what happens when we replace **var** using **let**:
 let snack = 'Meow Mix';
 
 function getFood(food) {
-
     if (food) {
         let snack = 'Friskies';
         return snack;
