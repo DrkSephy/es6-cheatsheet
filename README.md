@@ -580,7 +580,7 @@ However, this does not protect us from accidentally overriding functions with sp
 
 ```javascript
 > getOwnProperty({ hasOwnProperty: 'Hah, overwritten'}, 'Pwned');
-> TypeError: Propery 'hasOwnProperty' is not a function
+> TypeError: Property 'hasOwnProperty' is not a function
 ```
 
 Actual **Maps** allow us to **set**, **get** and **search** for values (and much more).
