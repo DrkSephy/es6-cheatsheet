@@ -349,7 +349,7 @@ let api = {
 export default api
 ```
 
-> **Best Practices**: Always use the **export default** method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. Moreso, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allow ourselves to interpolate between CommonJS and ES6 modules.
+> **Best Practices**: Always use the **export default** method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. More so, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allow ourselves to interpolate between CommonJS and ES6 modules.
 
 ### Importing in ES6
 
