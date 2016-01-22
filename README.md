@@ -2,6 +2,21 @@
 
 A cheatsheet containing ES6 tips, tricks, best practices and code snippet examples for your day to day workflow. Contributions are welcome!
 
+## Table of Contents
+
+- [var versus let / const](#var-versus-let-/-const)
+- [Replacing IIFEs with Blocks](#Replacing-IIFEs-with-Blocks)
+- [Arrow Functions](#Arrow-Functions)
+- [Strings](#Strings)
+- [Destructuring](#Destructuring)
+- [Modules](#Modules)
+- [Parameters](#Parameters)
+- [Classes](#Classes)
+- [Symbols](#Symbols)
+- [Maps](#Maps)
+- [WeakMaps](#WeakMaps)
+- [Promises](#Promises)
+
 ## var versus let / const
 
 > Besides var, we now have access to two new identifiers for storing values - **let** and **const**. Unlike **var**, **let** and **const** statements are not hoisted to the top of their enclosing scope. 
@@ -39,7 +54,7 @@ function getFood(food) {
 getFood(false); // 'Meow Mix'
 ```
 
-This bug highlights that we need to be careful when refactoring legacy code which uses **var**. 
+This change in behavior highlights that we need to be careful when refactoring legacy code which uses **var**. Blindly replacing instances of **var** with **let** may lead to unexpected behavior. 
 
 > **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables that will be immutable over time.
 
