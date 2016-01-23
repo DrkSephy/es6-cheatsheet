@@ -112,6 +112,35 @@ Person.prototype.prefixName = function (arr) {
 };
 ```
 
+We can also pass in the proper context of `this`:
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.prefixName = function (arr) {
+    return arr.map(function (character) {
+        return this.name + character;
+    }, this);
+}
+```
+
+As well as bind the context:
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.prefixName = function (arr) {
+    return arr.map(function (character) {
+        return this.name + character;
+    }.bind(this));
+}
+```
+
+
 Using **Arrow Functions**, the lexical value of **this** isn't shadowed and we can re-write the above as shown:
 
 ```javascript
