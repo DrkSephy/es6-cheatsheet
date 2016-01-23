@@ -364,6 +364,18 @@ import `underscore`
 
 > It is important to note that simply **importing an entire file will execute all code at the top level of that file**.
 
+To import the default export of `api` to a local read-only `api` variable, we can do:
+
+```javascript
+import api from 'api';
+```
+
+which is the **same** as:
+
+```javascript
+import { default as api } from 'api';
+```
+
 Similar to Python, we have named imports:
 
 ```javascript
@@ -383,20 +395,6 @@ In addition, we can **import all the things** (also called namespace import):
 
 ```javascript
 import * as util from 'math/addition'
-```
-
-Lastly, we can use destructuring to import a list of values from a file:
-
-```javascript
-import * as additionUtil from 'math/addtion';
-const { sumTwo, sumThree } = additionUtil;
-```
-
-or when we are importing the default object but we want to grab some of the functions on the object:
-
-```javascript
-import React from 'react';
-const { Component, PropTypes } = React;
 ```
 
 > **Note**: Values that are exported are **bindings**, not references. Therefore, changing the binding of a variable in one module will affect the value within the exported module. Avoid changing the public interface of these exported values.
