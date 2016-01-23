@@ -413,14 +413,14 @@ In addition, we can **import all the things** (also called namespace import):
 import * as util from 'math/addition'
 ```
 
-Lastly, we can use destructuring to import a list of values from a file:
+Lastly, we can import a list of values from a module:
 
 ```javascript
 import * as additionUtil from 'math/addtion';
 const { sumTwo, sumThree } = additionUtil;
 ```
 
-or when we are importing the default object but we want to grab some of the functions on the object:
+When importing the default object we can choose which functions to import: 
 
 ```javascript
 import React from 'react';
