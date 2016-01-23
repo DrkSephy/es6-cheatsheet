@@ -55,6 +55,13 @@ getFood(false); // 'Meow Mix'
 
 This change in behavior highlights that we need to be careful when refactoring legacy code which uses **var**. Blindly replacing instances of **var** with **let** may lead to unexpected behavior.
 
+> **Note**: **let** and **const** are block scoped. Therefore, referencing block-scoped identifiers before they are defined will produce a `ReferenceError`.
+
+```javascript
+console.log(x);
+let x = "hi";   // ReferenceError: x is not defined
+```
+
 > **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables that will be immutable over time.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
