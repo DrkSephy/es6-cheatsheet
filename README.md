@@ -654,6 +654,8 @@ for (let key of map.keys()) {
 };
 ```
 
+> **Note**: Using non-primitive values such as functions or objects won't work when testing equality using methods such as `map.get( )`. As such, stick to primitive values such as Strings, Booleans and Numbers. 
+
 We can also iterate over maps using **.entries( )**:
 
 ```javascript
