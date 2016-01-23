@@ -388,8 +388,8 @@ import * as util from 'math/addition'
 Lastly, we can use destructuring to import a list of values from a file:
 
 ```javascript
-import * as addtionUtil from 'math/addtion';
-const { sumTwo, sumThree } = addtionUtil;
+import * as additionUtil from 'math/addtion';
+const { sumTwo, sumThree } = additionUtil;
 ```
 
 or when we are importing the default object but we want to grab some of the functions on the object:
