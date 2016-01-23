@@ -260,10 +260,9 @@ var text = [
 **Template Literals** will preserve new lines for us without having to explicitly place them in:
 
 ```javascript
-let text = ( `cat
+let text = `cat
 dog
 nickelodeon`
-)
 ```
 
 
