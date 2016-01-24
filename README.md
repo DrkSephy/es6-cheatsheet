@@ -62,7 +62,7 @@ console.log(x);
 let x = "hi";   // ReferenceError: x is not defined
 ```
 
-> **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables that will be immutable over time.
+> **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables which cannot be reassigned.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
@@ -715,6 +715,29 @@ The cool thing about using WeakMaps to store our private data is that their keys
 > person.incrementAge(); // 'Midlife crisis'
 > Reflect.ownKeys(person); // []
 ```
+
+A more practical example of using WeakMaps is to store data which is associated to a DOM element without having to pollute the DOM itself:
+
+```javascript
+let map = new WeakMap();
+let el  = document.getElementById('someElement')
+
+// Store a weak reference to the element with a key
+map.set(el, 'reference');
+
+// Access the value of the element
+let value = map.get(el); // 'reference'
+
+// Remove the reference
+el.parentNode.removeChild(el);
+el = null;
+
+value = map.get(el); // undefined
+```
+
+As shown above, once the object is is destroyed by the garbage collector, the WeakMap will automatically remove the key-value pair which was identified by that object. 
+
+> **Note**: To further illustrate the usefulness of this example, consider how jQuery stores a cache of objects corresponding to DOM elements which have references. Using WeakMaps, jQuery can automatically free up any memory that was associated with a particular DOM element once it has been removed from the document. In general, WeakMaps are very useful for any library that wraps DOM elements. 
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
