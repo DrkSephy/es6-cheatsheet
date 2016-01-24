@@ -130,7 +130,7 @@ Person.prototype.prefixName = function (arr) {
     return arr.map(function (character) {
         return this.name + character;
     }, this);
-}
+};
 ```
 
 As well as bind the context:
@@ -144,7 +144,7 @@ Person.prototype.prefixName = function (arr) {
     return arr.map(function (character) {
         return this.name + character;
     }.bind(this));
-}
+};
 ```
 
 
@@ -157,7 +157,7 @@ function Person(name) {
 
 Person.prototype.prefixName = function (arr) {
     return arr.map(character => this.name + character);
-}
+};
 ```
 
 > **Best Practice**: Use **Arrow Functions** whenever you need to preserve the lexical value of **this**.
@@ -221,11 +221,11 @@ In ES6, we now have access to a terser implementation:
 Using **Template Literals**, we can now construct strings that have special characters in them without needing to escape them explicitly.
 
 ```javascript
-var text = "This string contains \"double quotes\" which are escaped."
+var text = "This string contains \"double quotes\" which are escaped.";
 ```
 
 ```javascript
-let text = `This string contains "double quotes" which are escaped.`
+let text = `This string contains "double quotes" which are escaped.`;
 ```
 
 **Template Literals** also support interpolation, which makes the task of concatenating strings and values:
@@ -251,7 +251,7 @@ var text = (
   'cat\n' +
   'dog\n' +
   'nickelodeon'
-)
+);
 ```
 
 Or:
@@ -261,7 +261,7 @@ var text = [
   'cat',
   'dog',
   'nickelodeon'
-].join('\n')
+].join('\n');
 ```
 
 **Template Literals** will preserve new lines for us without having to explicitly place them in:
@@ -270,15 +270,15 @@ var text = [
 let text = ( `cat
 dog
 nickelodeon`
-)
+);
 ```
 
 
 **Template Literals** can accept expressions, as well:
 
 ```javascript
-let today = new Date()
-let text = `The time and date is ${today.toLocaleString()}`
+let today = new Date();
+let text = `The time and date is ${today.toLocaleString()}`;
 ```
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
@@ -306,13 +306,13 @@ console.log(b); // 2
 ### Destructuring Objects
 
 ```javascript
-var luke = { occupation: 'jedi', father: 'anakin' }
+var luke = { occupation: 'jedi', father: 'anakin' };
 var occupation = luke.occupation; // 'jedi'
 var father = luke.father; // 'anakin'
 ```
 
 ```javascript
-let luke = { occupation: 'jedi', father: 'anakin' }
+let luke = { occupation: 'jedi', father: 'anakin' };
 let {occupation, father} = luke;
 console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
@@ -327,10 +327,10 @@ Prior to ES6, we used libraries such as [Browserify](http://browserify.org/) to 
 ### Exporting in CommonJS
 
 ```javascript
-module.exports = 1
-module.exports = { foo: 'bar' }
-module.exports = ['foo', 'bar']
-module.exports = function bar () {}
+module.exports = 1;
+module.exports = { foo: 'bar' };
+module.exports = ['foo', 'bar'];
+module.exports = function bar () {};
 ```
 
 ### Exporting in ES6
@@ -382,9 +382,9 @@ function sumThree(a, b, c) {
 let api = {
     sumTwo,
     sumThree
-}
+};
 
-export default api
+export default api;
 ```
 
 > **Best Practices**: Always use the **export default** method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. More so, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allow ourselves to interpolate between CommonJS and ES6 modules.
@@ -394,7 +394,7 @@ export default api
 ES6 provides us with various flavors of importing. We can import an entire file:
 
 ```javascript
-import `underscore`
+import `underscore`;
 ```
 
 > It is important to note that simply **importing an entire file will execute all code at the top level of that file**.
@@ -402,7 +402,7 @@ import `underscore`
 Similar to Python, we have named imports:
 
 ```javascript
-import { sumTwo, sumThree } from 'math/addition'
+import { sumTwo, sumThree } from 'math/addition';
 ```
 
 We can also rename the named imports:
@@ -411,13 +411,13 @@ We can also rename the named imports:
 import {
   sumTwo as addTwoNumbers,
   sumThree as sumThreeNumbers
-} from 'math/addition'
+} from 'math/addition';
 ```
 
 In addition, we can **import all the things** (also called namespace import):
 
 ```javascript
-import * as util from 'math/addition'
+import * as util from 'math/addition';
 ```
 
 Lastly, we can import a list of values from a module:
@@ -524,7 +524,7 @@ function initializeCanvas(
 We can use the spread operator to pass an array of values to be used as parameters to a function:
 
 ```javascript
-Math.max(...[-1, 100, 9001, -32]) // 9001
+Math.max(...[-1, 100, 9001, -32]); // 9001
 ```
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
@@ -558,7 +558,7 @@ Personal.prototype = Object.create(Person.prototype);
 Personal.prototype.constructor = Personal;
 Personal.prototype.incrementAge = function () {
     return Person.prototype.incrementAge.call(this) += 20;
-}
+};
 ```
 
 ES6 provides much needed syntactic sugar for doing this under the hood. We can create Classes directly:
@@ -609,7 +609,7 @@ const keyTwo = Symbol();
 const object = {};
 
 object[key] = 'Such magic.';
-object[keyTwo] = 'Much Uniqueness'
+object[keyTwo] = 'Much Uniqueness';
 
 // Two Symbols will never have the same value
 >> key === keyTwo
@@ -658,7 +658,7 @@ let map = new Map([
 for (let key of map.keys()) {
     console.log(typeof key);
     // > string, boolean, number, object, function
-};
+}
 ```
 
 > **Note**: Using non-primitive values such as functions or objects won't work when testing equality using methods such as `map.get( )`. As such, stick to primitive values such as Strings, Booleans and Numbers. 
@@ -769,7 +769,7 @@ var fetchJSON = function(url) {
       .done((json) => resolve(json))
       .fail((xhr, status, err) => reject(status + err.message));
   });
-}
+};
 ```
 
 We can also **parallelize** Promises to handle an array of asynchronous operations by using **Promise.all( )**:
