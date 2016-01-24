@@ -1,6 +1,7 @@
 # es6-cheatsheet
 
-A cheatsheet containing ES2015 [ES6] tips, tricks, best practices and code snippet examples for your day to day workflow. Contributions are welcome!
+A cheatsheet containing ES2015 [ES6] tips, tricks, best practices and code
+snippet examples for your day to day workflow. Contributions are welcome!
 
 ## Table of Contents
 
@@ -19,9 +20,11 @@ A cheatsheet containing ES2015 [ES6] tips, tricks, best practices and code snipp
 
 ## var versus let / const
 
-> Besides var, we now have access to two new identifiers for storing values - **let** and **const**. Unlike **var**, **let** and **const** statements are not hoisted to the top of their enclosing scope.
+> Besides `var`, we now have access to two new identifiers for storing values
+—`let` and `const`. Unlike `var`, `let` and `const` statements are not hoisted
+to the top of their enclosing scope.
 
-An example of using var:
+An example of using `var`:
 
 ```javascript
 var snack = 'Meow Mix';
@@ -37,7 +40,7 @@ function getFood(food) {
 getFood(false); // undefined
 ```
 
-However, observe what happens when we replace **var** using **let**:
+However, observe what happens when we replace `var` using `let`:
 
 ```javascript
 let snack = 'Meow Mix';
@@ -53,27 +56,38 @@ function getFood(food) {
 getFood(false); // 'Meow Mix'
 ```
 
-This change in behavior highlights that we need to be careful when refactoring legacy code which uses **var**. Blindly replacing instances of **var** with **let** may lead to unexpected behavior.
+This change in behavior highlights that we need to be careful when refactoring
+legacy code which uses `var`. Blindly replacing instances of `var` with `let`
+may lead to unexpected behavior.
 
-> **Note**: **let** and **const** are block scoped. Therefore, referencing block-scoped identifiers before they are defined will produce a `ReferenceError`.
+> **Note**: `let` and `const` are block scoped. Therefore, referencing
+block-scoped identifiers before they are defined will produce
+a `ReferenceError`.
 
 ```javascript
 console.log(x);
-let x = "hi";   // ReferenceError: x is not defined
+
+let x = 'hi'; // ReferenceError: x is not defined
 ```
 
-> **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables which cannot be reassigned.
+> **Best Practice**: Leave `var` declarations inside of legacy code to denote
+that it needs to be carefully refactored. When working on a new codebase, use
+`let` for variables that will change their value over time, and `const` for
+variables which cannot be reassigned.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Replacing IIFEs with Blocks
 
-> A common use of **Immediately Invoked Function Expressions** is to enclose values within its scope. In ES6, we now have the ability to create block-based scopes and therefore are not limited purely to function-based scope.
+> A common use of **Immediately Invoked Function Expressions** is to enclose
+values within its scope. In ES6, we now have the ability to create block-based
+scopes and therefore are not limited purely to function-based scope.
 
 ```javascript
 (function () {
     var food = 'Meow Mix';
 }());
+
 console.log(food); // Reference Error
 ```
 
@@ -83,6 +97,7 @@ Using ES6 Blocks:
 {
     let food = 'Meow Mix';
 }
+
 console.log(food); // Reference Error
 ```
 
@@ -90,7 +105,8 @@ console.log(food); // Reference Error
 
 ## Arrow Functions
 
-Often times we have nested functions in which we would like to preserve the context of **this** from its lexical scope. An example is shown below:
+Often times we have nested functions in which we would like to preserve the
+context of `this` from its lexical scope. An example is shown below:
 
 ```javascript
 function Person(name) {
@@ -104,7 +120,8 @@ Person.prototype.prefixName = function (arr) {
 };
 ```
 
-One common solution to this problem is to store the context of **this** using a variable:
+One common solution to this problem is to store the context of `this` using
+a variable:
 
 ```javascript
 function Person(name) {
@@ -147,8 +164,8 @@ Person.prototype.prefixName = function (arr) {
 };
 ```
 
-
-Using **Arrow Functions**, the lexical value of **this** isn't shadowed and we can re-write the above as shown:
+Using **Arrow Functions**, the lexical value of `this` isn't shadowed and we
+can re-write the above as shown:
 
 ```javascript
 function Person(name) {
@@ -160,9 +177,11 @@ Person.prototype.prefixName = function (arr) {
 };
 ```
 
-> **Best Practice**: Use **Arrow Functions** whenever you need to preserve the lexical value of **this**.
+> **Best Practice**: Use **Arrow Functions** whenever you need to preserve the
+lexical value of `this`.
 
-Arrow Functions are also more concise when used in function expressions which simply return a value:
+Arrow Functions are also more concise when used in function expressions which
+simply return a value:
 
 ```javascript
 var squares = arr.map(function (x) { return x * x }); // Function Expression
@@ -173,27 +192,33 @@ const arr = [1, 2, 3, 4, 5];
 const squares = arr.map(x => x * x); // Arrow Function for terser implementation
 ```
 
-> **Best Practice**: Use **Arrow Functions** in place of function expressions when possible.
+> **Best Practice**: Use **Arrow Functions** in place of function expressions
+when possible.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Strings
 
-With ES6, the standard library has grown immensely. Along with these changes are new methods which can be used on strings, such as **.includes()** and **.repeat()**.
+With ES6, the standard library has grown immensely. Along with these changes
+are new methods which can be used on strings, such as `.includes()` and
+`.repeat()`.
 
 ### .includes( )
 
 ```javascript
 var string = 'food';
 var substring = 'foo';
+
 console.log(string.indexOf(substring) > -1);
 ```
 
-Instead of checking for a return value `> -1` to denote string containment, we can simply use **.includes()** which will return a boolean:
+Instead of checking for a return value `> -1` to denote string containment,
+we can simply use `.includes()` which will return a boolean:
 
 ```javascript
 const string = 'food';
 const substring = 'foo';
+
 console.log(string.includes(substring)); // true
 ```
 
@@ -218,7 +243,8 @@ In ES6, we now have access to a terser implementation:
 
 ### Template Literals
 
-Using **Template Literals**, we can now construct strings that have special characters in them without needing to escape them explicitly.
+Using **Template Literals**, we can now construct strings that have special
+characters in them without needing to escape them explicitly.
 
 ```javascript
 var text = "This string contains \"double quotes\" which are escaped.";
@@ -228,11 +254,13 @@ var text = "This string contains \"double quotes\" which are escaped.";
 let text = `This string contains "double quotes" which are escaped.`;
 ```
 
-**Template Literals** also support interpolation, which makes the task of concatenating strings and values:
+**Template Literals** also support interpolation, which makes the task of
+concatenating strings and values:
 
 ```javascript
 var name = 'Tiger';
 var age = 13;
+
 console.log('My cat is named ' + name + ' and is ' + age + ' years old.');
 ```
 
@@ -241,6 +269,7 @@ Much simpler:
 ```javascript
 const name = 'Tiger';
 const age = 13;
+
 console.log(`My cat is named ${name} and is ${age} years old.`);
 ```
 
@@ -248,9 +277,9 @@ In ES5, we handled new lines as follows:
 
 ```javascript
 var text = (
-  'cat\n' +
-  'dog\n' +
-  'nickelodeon'
+    'cat\n' +
+    'dog\n' +
+    'nickelodeon'
 );
 ```
 
@@ -258,13 +287,14 @@ Or:
 
 ```javascript
 var text = [
-  'cat',
-  'dog',
-  'nickelodeon'
+    'cat',
+    'dog',
+    'nickelodeon'
 ].join('\n');
 ```
 
-**Template Literals** will preserve new lines for us without having to explicitly place them in:
+**Template Literals** will preserve new lines for us without having to
+explicitly place them in:
 
 ```javascript
 let text = ( `cat
@@ -272,7 +302,6 @@ dog
 nickelodeon`
 );
 ```
-
 
 **Template Literals** can accept expressions, as well:
 
@@ -285,7 +314,8 @@ let text = `The time and date is ${today.toLocaleString()}`;
 
 ## Destructuring
 
-Destructuring allows us to extract values from arrays and objects (even deeply nested) and store them in variables with a more convenient syntax.
+Destructuring allows us to extract values from arrays and objects (even deeply
+nested) and store them in variables with a more convenient syntax.
 
 ### Destructuring Arrays
 
@@ -299,6 +329,7 @@ var d = arr[3];
 
 ```javascript
 let [a, b, c, d] = [1, 2, 3, 4];
+
 console.log(a); // 1
 console.log(b); // 2
 ```
@@ -314,6 +345,7 @@ var father = luke.father; // 'anakin'
 ```javascript
 let luke = { occupation: 'jedi', father: 'anakin' };
 let {occupation, father} = luke;
+
 console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
 ```
@@ -322,7 +354,10 @@ console.log(father); // 'anakin'
 
 ## Modules
 
-Prior to ES6, we used libraries such as [Browserify](http://browserify.org/) to create modules on the client-side, and [require](https://nodejs.org/api/modules.html#modules_module_require_id) in **Node.js**. With ES6, we can now directly use modules of all types (AMD and CommonJS).
+Prior to ES6, we used libraries such as [Browserify](http://browserify.org/)
+to create modules on the client-side, and [require](https://nodejs.org/api/modules.html#modules_module_require_id)
+in **Node.js**. With ES6, we can now directly use modules of all types
+(AMD and CommonJS).
 
 ### Exporting in CommonJS
 
@@ -335,7 +370,8 @@ module.exports = function bar () {};
 
 ### Exporting in ES6
 
-With ES6, we have various flavors of exporting. We can perform **Named Exports**:
+With ES6, we have various flavors of exporting. We can perform
+**Named Exports**:
 
 ```javascript
 export let name = 'David';
@@ -356,7 +392,7 @@ function sumThree(a, b, c) {
 export { sumTwo, sumThree };
 ```
 
-We can also export a value simply by using the **export** keyword:
+We can also export a value simply by using the `export` keyword:
 
 ```javascript
 export function sumTwo(a, b) {
@@ -387,7 +423,12 @@ let api = {
 export default api;
 ```
 
-> **Best Practices**: Always use the **export default** method at **the end** of the module. It makes it clear what is being exported, and saves time by having to figure out what name a value was exported as. More so, the common practice in CommonJS modules is to export a single value or object. By sticking to this paradigm, we make our code easily readable and allow ourselves to interpolate between CommonJS and ES6 modules.
+> **Best Practices**: Always use the `export default` method at **the end** of
+the module. It makes it clear what is being exported, and saves time by having
+to figure out what name a value was exported as. More so, the common practice
+in CommonJS modules is to export a single value or object. By sticking to this
+paradigm, we make our code easily readable and allow ourselves to interpolate
+between CommonJS and ES6 modules.
 
 ### Importing in ES6
 
@@ -397,7 +438,8 @@ ES6 provides us with various flavors of importing. We can import an entire file:
 import `underscore`;
 ```
 
-> It is important to note that simply **importing an entire file will execute all code at the top level of that file**.
+> It is important to note that simply **importing an entire file will execute
+all code at the top level of that file**.
 
 Similar to Python, we have named imports:
 
@@ -409,8 +451,8 @@ We can also rename the named imports:
 
 ```javascript
 import {
-  sumTwo as addTwoNumbers,
-  sumThree as sumThreeNumbers
+    sumTwo as addTwoNumbers,
+    sumThree as sumThreeNumbers
 } from 'math/addition';
 ```
 
@@ -427,20 +469,25 @@ import * as additionUtil from 'math/addtion';
 const { sumTwo, sumThree } = additionUtil;
 ```
 
-When importing the default object we can choose which functions to import: 
+When importing the default object we can choose which functions to import:
 
 ```javascript
 import React from 'react';
 const { Component, PropTypes } = React;
 ```
 
-> **Note**: Values that are exported are **bindings**, not references. Therefore, changing the binding of a variable in one module will affect the value within the exported module. Avoid changing the public interface of these exported values.
+> **Note**: Values that are exported are **bindings**, not references.
+Therefore, changing the binding of a variable in one module will affect the
+value within the exported module. Avoid changing the public interface of these
+exported values.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Parameters
 
-In ES5, we had varying ways to handle functions which needed **default values**, **indefinite arguments**, and **named parameters**. With ES6, we can accomplish all of this and more using more concise syntax.
+In ES5, we had varying ways to handle functions which needed **default values**,
+**indefinite arguments**, and **named parameters**. With ES6, we can accomplish
+all of this and more using more concise syntax.
 
 ### Default Parameters
 
@@ -490,7 +537,8 @@ function logArguments(...args) {
 
 ### Named Parameters
 
-One of the patterns in ES5 to handle named parameters was to use the **options object** pattern, adopted from jQuery.
+One of the patterns in ES5 to handle named parameters was to use the **options
+object** pattern, adopted from jQuery.
 
 ```javascript
 function initializeCanvas(options) {
@@ -500,28 +548,31 @@ function initializeCanvas(options) {
 }
 ```
 
-We can achieve the same functionality using destructuring as a formal parameter to a function:
+We can achieve the same functionality using destructuring as a formal parameter
+to a function:
 
 ```javascript
 function initializeCanvas(
     { height=600, width=400, lineStroke='black'}) {
-        ...
+        // ...
     }
     // Use variables height, width, lineStroke here
 ```
 
-If we want to make the entire value optional, we can do so by destructuring an empty object:
+If we want to make the entire value optional, we can do so by destructuring an
+empty object:
 
 ```javascript
 function initializeCanvas(
     { height=600, width=400, lineStroke='black'} = {}) {
-        ...
+        // ...
     }
 ```
 
 ### Spread Operator
 
-We can use the spread operator to pass an array of values to be used as parameters to a function:
+We can use the spread operator to pass an array of values to be used as
+parameters to a function:
 
 ```javascript
 Math.max(...[-1, 100, 9001, -32]); // 9001
@@ -531,7 +582,8 @@ Math.max(...[-1, 100, 9001, -32]); // 9001
 
 ## Classes
 
-Prior to ES6, we implemented Classes by creating a constructor function and adding properties by extending the prototype:
+Prior to ES6, we implemented Classes by creating a constructor function and
+adding properties by extending the prototype:
 
 ```javascript
 function Person(name, age, gender) {
@@ -561,7 +613,8 @@ Personal.prototype.incrementAge = function () {
 };
 ```
 
-ES6 provides much needed syntactic sugar for doing this under the hood. We can create Classes directly:
+ES6 provides much needed syntactic sugar for doing this under the hood. We can
+create Classes directly:
 
 ```javascript
 class Person {
@@ -577,31 +630,35 @@ class Person {
 }
 ```
 
-And extend them using the **extends** keyword:
+And extend them using the `extends` keyword:
 
 ```javascript
 class Personal extends Person {
     constructor(name, age, gender, occupation, hobby) {
-      super(name, age, gender);
-      this.occupation = occupation;
-      this.hobby = hobby;
+        super(name, age, gender);
+        this.occupation = occupation;
+        this.hobby = hobby;
     }
 
     incrementAge() {
-      super.incrementAge();
-      this.age += 20;
-      console.log(this.age);
+        super.incrementAge();
+        this.age += 20;
+        console.log(this.age);
     }
 }
 ```
 
-> **Best Practice**: While the syntax for creating classes in ES6 obscures how implementation and prototypes work under the hood, it is a good feature for beginners and allows us to write cleaner code.
+> **Best Practice**: While the syntax for creating classes in ES6 obscures how
+implementation and prototypes work under the hood, it is a good feature for
+beginners and allows us to write cleaner code.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Symbols
 
-Symbols have existed prior to ES6, but now we have a public interface to using them directly. One such example is to create unique property keys which will never collide:
+Symbols have existed prior to ES6, but now we have a public interface to using
+them directly. One such example is to create unique property keys which will
+never collide:
 
 ```javascript
 const key = Symbol();
@@ -620,7 +677,8 @@ object[keyTwo] = 'Much Uniqueness';
 
 ## Maps
 
-**Maps** is a much needed data structure in JavaScript. Prior to ES6, we created **hash** maps through objects:
+**Maps** is a much needed data structure in JavaScript. Prior to ES6, we created
+**hash** maps through objects:
 
 ```javascript
 var map = new Object();
@@ -628,14 +686,15 @@ map[key1] = 'value1';
 map[key2] = 'value2';
 ```
 
-However, this does not protect us from accidentally overriding functions with specific property names:
+However, this does not protect us from accidentally overriding functions with
+specific property names:
 
 ```javascript
 > getOwnProperty({ hasOwnProperty: 'Hah, overwritten'}, 'Pwned');
 > TypeError: Property 'hasOwnProperty' is not a function
 ```
 
-Actual **Maps** allow us to **set**, **get** and **search** for values (and much more).
+Actual **Maps** allow us to `set`, `get` and `search` for values (and much more).
 
 ```javascript
 let map = new Map();
@@ -644,7 +703,9 @@ let map = new Map();
 > map.has('name'); // true
 ```
 
-The most amazing part of Maps is that we are no longer limited to just using strings. We can now use any type as a key, and it will not be type-casted to a string.
+The most amazing part of Maps is that we are no longer limited to just using
+strings. We can now use any type as a key, and it will not be type-casted to
+a string.
 
 ```javascript
 let map = new Map([
@@ -661,13 +722,15 @@ for (let key of map.keys()) {
 }
 ```
 
-> **Note**: Using non-primitive values such as functions or objects won't work when testing equality using methods such as `map.get( )`. As such, stick to primitive values such as Strings, Booleans and Numbers. 
+> **Note**: Using non-primitive values such as functions or objects won't work
+when testing equality using methods such as `map.get()`. As such, stick to
+primitive values such as Strings, Booleans and Numbers.
 
-We can also iterate over maps using **.entries( )**:
+We can also iterate over maps using `.entries()`:
 
 ```javascript
 for (let [key, value] of map.entries()) {
-  console.log(key, value);
+    console.log(key, value);
 }
 ```
 
@@ -675,7 +738,8 @@ for (let [key, value] of map.entries()) {
 
 ## WeakMaps
 
-In order to store private data in < ES5, we had various ways of doing this. One such method was using naming conventions:
+In order to store private data in < ES5, we had various ways of doing this.
+One such method was using naming conventions:
 
 ```javascript
 class Person {
@@ -684,31 +748,34 @@ class Person {
     }
 
     _incrementAge() {
-      this._age += 1;
+        this._age += 1;
     }
 }
 ```
 
-But naming conventions can cause confusion in a codebase and are not always going to be upheld. Instead, we can use WeakMaps to store our values:
+But naming conventions can cause confusion in a codebase and are not always
+going to be upheld. Instead, we can use WeakMaps to store our values:
 
 ```javascript
 let _age = new WeakMap();
 class Person {
-  constructor(age) {
-    _age.set(this, age);
-  }
-
-  incrementAge() {
-    let age = _age.get(this) + 1;
-    _age.set(this, age);
-    if (age > 50) {
-      console.log('Midlife crisis');
+    constructor(age) {
+        _age.set(this, age);
     }
-  }
+
+    incrementAge() {
+        let age = _age.get(this) + 1;
+        _age.set(this, age);
+        if (age > 50) {
+            console.log('Midlife crisis');
+        }
+    }
 }
 ```
 
-The cool thing about using WeakMaps to store our private data is that their keys do not give away the property names, which can be seen by using **Reflect.ownKeys()**:
+The cool thing about using WeakMaps to store our private data is that their
+keys do not give away the property names, which can be seen by using
+`Reflect.ownKeys()`:
 
 ```javascript
 > const person = new Person(50);
@@ -716,11 +783,12 @@ The cool thing about using WeakMaps to store our private data is that their keys
 > Reflect.ownKeys(person); // []
 ```
 
-A more practical example of using WeakMaps is to store data which is associated to a DOM element without having to pollute the DOM itself:
+A more practical example of using WeakMaps is to store data which is associated
+to a DOM element without having to pollute the DOM itself:
 
 ```javascript
 let map = new WeakMap();
-let el  = document.getElementById('someElement')
+let el  = document.getElementById('someElement');
 
 // Store a weak reference to the element with a key
 map.set(el, 'reference');
@@ -735,9 +803,16 @@ el = null;
 value = map.get(el); // undefined
 ```
 
-As shown above, once the object is is destroyed by the garbage collector, the WeakMap will automatically remove the key-value pair which was identified by that object. 
+As shown above, once the object is is destroyed by the garbage collector,
+the WeakMap will automatically remove the key-value pair which was identified
+by that object.
 
-> **Note**: To further illustrate the usefulness of this example, consider how jQuery stores a cache of objects corresponding to DOM elements which have references. Using WeakMaps, jQuery can automatically free up any memory that was associated with a particular DOM element once it has been removed from the document. In general, WeakMaps are very useful for any library that wraps DOM elements. 
+> **Note**: To further illustrate the usefulness of this example, consider how
+jQuery stores a cache of objects corresponding to DOM elements which have
+references. Using WeakMaps, jQuery can automatically free up any memory that
+was associated with a particular DOM element once it has been removed from the
+document. In general, WeakMaps are very useful for any library that wraps DOM
+elements.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
@@ -747,15 +822,15 @@ Promises allow us to turn our horizontal code (callback hell):
 
 ```javascript
 func1(function (value1) {
-  func2(value1, function(value2) {
-    func3(value2, function(value3) {
-      func4(value3, function(value4) {
-        func5(value4, function(value5) {
-          // Do something with value 5
+    func2(value1, function (value2) {
+        func3(value2, function (value3) {
+            func4(value3, function (value4) {
+                func5(value4, function (value5) {
+                    // Do something with value 5
+                });
+            });
         });
-      });
     });
-  });
 });
 ```
 
@@ -763,54 +838,60 @@ Into vertical code:
 
 ```javascript
 func1(value1)
-  .then(func2)
-  .then(func3)
-  .then(func4)
-  .then(func5, value5 => {
-    // Do something with value 5
-  });
+    .then(func2)
+    .then(func3)
+    .then(func4)
+    .then(func5, value5 => {
+        // Do something with value 5
+    });
 ```
 
-Prior to ES6, we used [bluebird](https://github.com/petkaantonov/bluebird) or [Q](https://github.com/kriskowal/q). Now we have Promises natively:
+Prior to ES6, we used [bluebird](https://github.com/petkaantonov/bluebird) or
+[Q](https://github.com/kriskowal/q). Now we have Promises natively:
 
 ```javascript
 new Promise((resolve, reject) =>
     reject(new Error('Failed to fulfill Promise')))
-    .catch(reason => console.log(reason));
+        .catch(reason => console.log(reason));
 ```
 
-Where we have two handlers, **resolve** (a function called when the Promise is **fulfilled**) and **reject** (a function called when the Promise is **rejected**).
+Where we have two handlers, **resolve** (a function called when the Promise is
+**fulfilled**) and **reject** (a function called when the Promise is **rejected**).
 
-> **Benefits of Promises**: Error Handling using a bunch of nested callbacks can get chaotic. Using Promises, we have a clear path to bubbling errors up and handling them appropriately. Moreover, the value of a Promise after it has been resolved/rejected is immutable - it will never change.
+> **Benefits of Promises**: Error Handling using a bunch of nested callbacks
+can get chaotic. Using Promises, we have a clear path to bubbling errors up
+and handling them appropriately. Moreover, the value of a Promise after it has
+been resolved/rejected is immutable - it will never change.
 
 Here is a practical example of using Promises:
 
 ```javascript
 var fetchJSON = function(url) {
-  return new Promise((resolve, reject) => {
-    $.getJSON(url)
-      .done((json) => resolve(json))
-      .fail((xhr, status, err) => reject(status + err.message));
-  });
+    return new Promise((resolve, reject) => {
+        $.getJSON(url)
+            .done((json) => resolve(json))
+            .fail((xhr, status, err) => reject(status + err.message));
+    });
 };
 ```
 
-We can also **parallelize** Promises to handle an array of asynchronous operations by using **Promise.all( )**:
+We can also **parallelize** Promises to handle an array of asynchronous
+operations by using `Promise.all()`:
 
 ```javascript
 var urls = [
-  'http://www.api.com/items/1234',
-  'http://www.api.com/items/4567'
+    'http://www.api.com/items/1234',
+    'http://www.api.com/items/4567'
 ];
 
 var urlPromises = urls.map(fetchJSON);
 
 Promise.all(urlPromises)
-  .then(function(results) {
-     results.forEach(function(data) {
-     });
-  })
-  .catch(function(err) {
-    console.log("Failed: ", err);
-  });
+    .then(function (results) {
+        results.forEach(function (data) {
+        });
+    })
+    .catch(function (err) {
+        console.log('Failed: ', err);
+    });
 ```
