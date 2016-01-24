@@ -766,8 +766,8 @@ Here is a practical example of using Promises:
 var fetchJSON = function(url) {
   return new Promise((resolve, reject) => {
     $.getJSON(url)
-      .done((json) => resolve(json))
-      .fail((xhr, status, err) => reject(status + err.message));
+      .done(resolve)
+      .fail(reject);
   });
 }
 ```
