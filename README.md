@@ -435,7 +435,7 @@ between CommonJS and ES6 modules.
 ES6 provides us with various flavors of importing. We can import an entire file:
 
 ```javascript
-import `underscore`;
+import 'underscore';
 ```
 
 > It is important to note that simply **importing an entire file will execute
