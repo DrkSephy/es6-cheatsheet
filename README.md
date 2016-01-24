@@ -62,7 +62,7 @@ console.log(x);
 let x = "hi";   // ReferenceError: x is not defined
 ```
 
-> **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables that will be immutable over time.
+> **Best Practice**: Leave **var** declarations inside of legacy code to denote that it needs to be carefully refactored. When working on a new codebase, use **let** for variables that will change their value over time, and **const** for variables which cannot be reassigned.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
