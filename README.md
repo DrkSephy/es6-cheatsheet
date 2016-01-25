@@ -662,21 +662,69 @@ beginners and allows us to write cleaner code.
 ## Symbols
 
 Symbols have existed prior to ES6, but now we have a public interface to using
-them directly. One such example is to create unique property keys which will
-never collide:
+them directly. Symbols are immutable and unique and can be used as keys in any hash.
 
-```javascript
-const key = Symbol();
-const keyTwo = Symbol();
-const object = {};
+### Symbol()
 
-object[key] = 'Such magic.';
-object[keyTwo] = 'Much Uniqueness';
+Calling `Symbol()` or `Symbol(description)` will create a unique symbol that cannot be looked up
+globally. A Use case for `Symbol()` is to patch objects or namespaces from third parties with your own
+logic, but be confident that you won't collide with updates to that library. For example,
+if you wanted to add a method `refreshComponent` to the `React.Component` class, and be certain that
+you didn't trample a method they add in a later update:
 
-// Two Symbols will never have the same value
->> key === keyTwo
->> false
+```js
+const refreshComponent = Symbol();
+
+React.Component.prototype[refreshComponent] = () => {
+    // do something
+}
 ```
+
+
+### Symbol.for(key)
+
+`Symbol.for(key)` will create a Symbol that is still immutable and unique, but can be looked up globally.
+Two identical calls to `Symbol.for(key)` will return the same Symbol instance. NOTE: This is not true for `Symbol(description)`.
+
+```js
+Symbol('foo') === Symbol('foo') // false
+Symbol.for('foo') === Symbol('foo') // false
+Symbol.for('foo') === Symbol.for('foo') // true
+```
+
+A common use case for Symbols, and in particular with `Symbol.for(key)` is for interoperability. This can be acheived by
+having your code look for a Symbol member on object arguments from third parties that contain some known interface.
+For example:
+
+```js
+function reader(obj) {
+    const specialRead = Symbol.for('specialRead');
+    if (obj[specialRead]) {
+        const reader = obj[specialRead]();
+        // do something with reader
+    } else {
+        throw new TypeError('object cannot be read');
+    }
+}
+```
+
+and then in another library:
+
+```js
+const specialRead = Symbol.for('specialRead');
+
+class SomeReadableType {
+    [specialRead]() {
+        const reader = createSomeReaderFrom(this);
+        return reader;
+    }
+}
+```
+
+A notable example of Symbol use for interop is `Symbol.iterable` which exists on all iterable and iterator
+types in ES6: Arrays, strings, generators, etc. When called as a method it returns an object with an Iterator 
+interface.
+
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
