@@ -465,7 +465,7 @@ import * as util from 'math/addition';
 Lastly, we can import a list of values from a module:
 
 ```javascript
-import * as additionUtil from 'math/addtion';
+import * as additionUtil from 'math/addition';
 const { sumTwo, sumThree } = additionUtil;
 ```
 
