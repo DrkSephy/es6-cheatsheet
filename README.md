@@ -476,6 +476,12 @@ import React from 'react';
 const { Component, PropTypes } = React;
 ```
 
+This can also be simplified further, using:
+
+```javascript
+import React, { Component, PropTypes } from 'react';
+```
+
 > **Note**: Values that are exported are **bindings**, not references.
 Therefore, changing the binding of a variable in one module will affect the
 value within the exported module. Avoid changing the public interface of these
