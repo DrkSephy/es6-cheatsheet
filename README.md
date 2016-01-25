@@ -554,9 +554,8 @@ to a function:
 ```javascript
 function initializeCanvas(
     { height=600, width=400, lineStroke='black'}) {
-        // ...
+        // Use variables height, width, lineStroke here
     }
-    // Use variables height, width, lineStroke here
 ```
 
 If we want to make the entire value optional, we can do so by destructuring an
