@@ -614,7 +614,9 @@ function Personal(name, age, gender, occupation, hobby) {
 Personal.prototype = Object.create(Person.prototype);
 Personal.prototype.constructor = Personal;
 Personal.prototype.incrementAge = function () {
-    return Person.prototype.incrementAge.call(this) += 20;
+    Person.prototype.incrementAge.call(this);
+    this.age += 20;
+    console.log(this.age);
 };
 ```
 
