@@ -759,7 +759,7 @@ let map = new Map();
 ```
 
 The most amazing part of Maps is that we are no longer limited to just using
-strings. We can now use any type as a key, and it will not be type-casted to
+strings. We can now use any type as a key, and it will not be type-cast to
 a string.
 
 ```javascript
