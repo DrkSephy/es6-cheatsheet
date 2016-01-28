@@ -696,7 +696,7 @@ Symbol.for('foo') === Symbol.for('foo') // true
 ```
 
 A common use case for Symbols, and in particular with `Symbol.for(key)` is for interoperability. This can be 
-acheived by having your code look for a Symbol member on object arguments from third parties that contain some 
+achieved by having your code look for a Symbol member on object arguments from third parties that contain some 
 known interface. For example:
 
 ```javascript
