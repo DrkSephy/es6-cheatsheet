@@ -576,11 +576,23 @@ function initializeCanvas(
 
 ### Spread Operator
 
-We can use the spread operator to pass an array of values to be used as
+In ES5, we could find the max of values in an array by using the `apply` method on `Math.max` like this:
+```javascript
+Math.max.apply(null, [-1, 100, 9001, -32]); // 9001
+```
+
+In ES6, we can now use the spread operator to pass an array of values to be used as
 parameters to a function:
 
 ```javascript
 Math.max(...[-1, 100, 9001, -32]); // 9001
+```
+
+We can concat array literals easily with this intuitive syntax:
+
+```javascript
+let cities = ['San Francisco', 'Los Angeles'];
+let places = ['Miami', ...cities, 'Chicago']; // ['Miami', 'San Francisco', 'Los Angeles', 'Chicago']
 ```
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
