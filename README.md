@@ -392,7 +392,7 @@ function sumThree(a, b, c) {
 export { sumTwo, sumThree };
 ```
 
-We can also export a value simply by using the `export` keyword:
+We can also export functions, objects and values (etc.) simply by using the `export` keyword:
 
 ```javascript
 export function sumTwo(a, b) {
