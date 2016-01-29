@@ -17,6 +17,8 @@ snippet examples for your day to day workflow. Contributions are welcome!
 - [Maps](#maps)
 - [WeakMaps](#weakmaps)
 - [Promises](#promises)
+- [Generators](#generators)
+- [Async Await](#async-await)
 
 ## var versus let / const
 
@@ -962,3 +964,130 @@ Promise.all(urlPromises)
         console.log('Failed: ', err);
     });
 ```
+
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
+## Generators
+
+Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid 
+[callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our
+asynchronous code a synchronous feel. Generators are essentially functions which we can 
+[pause their excution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
+and subsequently return the value of an expression.
+
+A simple example of using generators is shown below:
+
+```javascript
+function* sillyGenerator() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
+
+var generator = sillyGenerator();
+var value = generator.next();
+> console.log(value); // { value: 1, done: false }
+> console.log(value); // { value: 2, done: false }
+> console.log(value); // { value: 3, done: false }
+> console.log(value); // { value: 4, done: false }
+```
+
+Where the [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
+will allow us to push our generator forward and evaluate a new expression. While the above example is extremely
+contrived, we can utilize Generators to write asynchronous code in a synchronous manner:
+
+```javascript
+// Hiding asynchronousity with Generators
+
+function request(url) {
+    getJSON(url, function(response) {
+        generator.next(response);
+    });
+}
+```
+
+And here we write a generator function that will return our data:
+
+```javascript
+function* getData() {
+    var entry1 = yield request('http://some_api/item1');
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request('http://some_api/item2');
+    var data2  = JSON.parse(entry2);
+}
+```
+
+By the power of `yield`, we are gauranteed that `entry1` will have the data needed to be parsed and stored
+in `data1`. 
+
+While generators allow us to write asynchronous code in a synchronous manner, there is no clear 
+and easy path for error propagation. As such, as we can augment our generator with Promises:
+
+```javascript
+function request(url) {
+    return new Promise((resolve, reject) => {
+        getJSON(url, resolve);
+    });
+}
+```
+
+And we write a function which will step through our generator using `next` which in turn will utilize our
+`request` method above to yield a Promise:
+
+```javascript
+function iterateGenerator(gen) {
+    var generator = gen();
+    var ret;
+    (function iterate(val) {
+        ret = generator.next();
+        if(!ret.done) {
+            ret.value.then(iterate);
+        } 
+    })(); 
+}
+```
+
+By augmenting our Generator with Promises, we have a clear way of propogating errors through the use of our 
+Promise `.catch` and `reject`. To use our newly augmented Generator, it is as simple as before:
+
+```javascript
+iterateGenerator(function* getData() {
+    var entry1 = yield request('http://some_api/item1');
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request('http://some_api/item2');
+    var data2  = JSON.parse(entry2);
+});
+```
+
+We were able to reuse our implementation to use our Generator as before, which shows their power. While Generators
+and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propogate
+errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits:
+[async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await).
+
+## Async Await
+
+While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished 
+using Generators and Promises with less effort:
+
+```javascript
+var request = require('request');
+ 
+function getJSON(url) {
+  return new Promise(function(resolve, reject) {
+    request(url, function(error, response, body) {
+      resolve(body);
+    });
+  });
+}
+ 
+async function main() {
+  var data = await getJSON();
+  console.log(data); // NOT undefined!
+}
+ 
+main();
+```
+
+Under the hood, it performs similarly to Generators. I highly recommend giving it a try, A great resource
+for getting up and running with ES7 and Babel can be found [here](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html).
