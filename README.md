@@ -993,7 +993,7 @@ var value = generator.next();
 > console.log(value); // { value: 4, done: false }
 ```
 
-Where the [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
+Where [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
 will allow us to push our generator forward and evaluate a new expression. While the above example is extremely
 contrived, we can utilize Generators to write asynchronous code in a synchronous manner:
 
@@ -1065,6 +1065,8 @@ and Promises allow us to write asynchronous code in a synchronous manner while r
 errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits:
 [async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await).
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
 ## Async Await
 
 While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished 
@@ -1089,5 +1091,7 @@ async function main() {
 main();
 ```
 
-Under the hood, it performs similarly to Generators. I highly recommend giving it a try, A great resource
+Under the hood, it performs similarly to Generators. I highly recommend using them over Generators + Promises. A great resource
 for getting up and running with ES7 and Babel can be found [here](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html).
+
+<sup>[(back to table of contents)](#table-of-contents)</sup>
