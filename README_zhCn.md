@@ -318,7 +318,7 @@ console.log(b); // 2
 
 ### Destructuring Objects
 
-**结构对象**
+**解构对象**
 
 ```javascript
 var luke = { occupation: 'jedi', father: 'anakin' };
@@ -524,7 +524,7 @@ function initializeCanvas(options) {
 }
 ```
 
-我们可以利用上面提到的新特性 **结构** ，来完成与上面同样功能的函数：
+我们可以利用上面提到的新特性 **解构** ，来完成与上面同样功能的函数：
 We can achieve the same functionality using destructuring as a formal parameter
 to a function:
 
@@ -536,7 +536,7 @@ function initializeCanvas(
     // Use variables height, width, lineStroke here
 ```
 
-如果我们需要把这个参数变为可选的，那么只要把该参数结构为一个空对象就好了：
+如果我们需要把这个参数变为可选的，那么只要把该参数解构为一个空对象就好了：
 
 ```javascript
 function initializeCanvas(
