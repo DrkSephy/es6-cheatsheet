@@ -629,21 +629,65 @@ class Personal extends Person {
 
 ## Symbols
 
-符号在ES6版本之前就已经存在了，但现在我们拥有一个公共的接口来直接使用它们。
-下面的例子是创建了两个永远不会冲突的属性。
+符号（Symbols）在ES6版本之前就已经存在了，但现在我们拥有一个公共的接口来直接使用它们。
+Symbols对象是一旦创建就不可以被更改的（immutable）而且能被用做hash数据类型中的键。
+
+### Symbol( )
+调用 `Symbol()` 或者 `Symbol(描述文本)` 会创建一个唯一的、在全局中不可以访问的符号对象。
+一个 `Symbol()` 的应用场景是：在自己的项目中使用第三方代码库，且你需要给他们的对象或者命名空间打补丁代码，又不想改动或升级第三方原有代码的时候。
+举个例子，如果你想给 `React.Component` 这个类添加一个 `refreshComponent` 方法，但又确定不了这个方法会不会在下个版本中加入，你可以这么做：
 
 ```javascript
-const key = Symbol();
-const keyTwo = Symbol();
-const object = {};
+const refreshComponent = Symbol();
 
-object[key] = 'Such magic.';
-object[keyTwo] = 'Much Uniqueness';
-
-// Two Symbols will never have the same value
->> key === keyTwo
->> false
+React.Component.prototype[refreshComponent] = () => {
+    // do something
+}
 ```
+
+### Symbol.for(key)
+
+使用 `Symbol.for(key)` 也是会创建一个不可改变的Symbol对象，但区别于上面的创建方法，这个对象是在全局中可以被访问到的。
+调用两次 `Symbol.for(key)` 会返回相同的Symbol实例。
+
+**提示**：这并不同于 `Symbol(description)`。
+
+```javascript
+Symbol('foo') === Symbol('foo') // false
+Symbol.for('foo') === Symbol('foo') // false
+Symbol.for('foo') === Symbol.for('foo') // true
+```
+
+一个Symbols常用的使用场景，是需要使用特别 `Symbol.for(key)` 方法来实现代码间的协作。
+这能让你在你的代码中，查找包含已知的接口的第三方代码中Symbol成员。（译者：这句话好难翻。。。原文：This can be
+achieved by having your code look for a Symbol member on object arguments from third parties that contain some known interface. ）举个例子：
+
+```javascript
+function reader(obj) {
+    const specialRead = Symbol.for('specialRead');
+    if (obj[specialRead]) {
+        const reader = obj[specialRead]();
+        // do something with reader
+    } else {
+        throw new TypeError('object cannot be read');
+    }
+}
+```
+
+之后在另一个库中：
+
+```javascript
+const specialRead = Symbol.for('specialRead');
+
+class SomeReadableType {
+    [specialRead]() {
+        const reader = createSomeReaderFrom(this);
+        return reader;
+    }
+}
+```
+
+> **注意**：`Symbol.iterable` 在ES6中像其他可枚举的对象，如数组，字符串，generators一样，当这个方法被调用时会激活一个枚举器并返回一个对象。
 
 <sup>[(回到目录)](#table-of-contents)</sup>
 
