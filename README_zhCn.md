@@ -855,13 +855,10 @@ Promise.all(urlPromises)
 
 ## Generators
 
-Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid
-[callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our
-asynchronous code a synchronous feel. Generators are essentially functions which we can
-[pause their excution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
-and subsequently return the value of an expression.
+就像[Promises](https://github.com/DrkSephy/es6-cheatsheet#promises)如何让我们避免[回调地狱](http://callbackhell.com/)一样，Generators也可以使我们的代码扁平化，同时给予我们开发者像开发同步代码一样的感觉来写异步代码。Generators本质上是一种支持的函数，随后返回表达式的值。
+Generators实际上是支持[暂停运行](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)，随后根据上一步的返回值再继续运行的一种函数。
 
-A simple example of using generators is shown below:
+下面代码是一个使用generators函数的简单例子：
 
 ```javascript
 function* sillyGenerator() {
@@ -879,9 +876,8 @@ var value = generator.next();
 > console.log(value); // { value: 4, done: false }
 ```
 
-Where [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
-will allow us to push our generator forward and evaluate a new expression. While the above example is extremely
-contrived, we can utilize Generators to write asynchronous code in a synchronous manner:
+就像上面的例子，当[next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)运行时，它会把我们的generator向前“推动”，同时执行新的表达式。
+我们能利用Generators来像书写同步代码一样书写异步代码。
 
 ```javascript
 // Hiding asynchronousity with Generators
@@ -893,7 +889,7 @@ function request(url) {
 }
 ```
 
-And here we write a generator function that will return our data:
+这里我们写个generator函数将要返回我们的数据：
 
 ```javascript
 function* getData() {
@@ -904,11 +900,9 @@ function* getData() {
 }
 ```
 
-By the power of `yield`, we are gauranteed that `entry1` will have the data needed to be parsed and stored
-in `data1`.
+借助于 `yield`，我们可以保证 `entry1` 确实拿到数据并转换后再赋值给 `data1`。
 
-While generators allow us to write asynchronous code in a synchronous manner, there is no clear
-and easy path for error propagation. As such, as we can augment our generator with Promises:
+当我们使用generators来像书写同步代码一样书写我们的异步代码逻辑时，没有一种清晰简单的方式来处理期间可能会产生的错误或者异常。在这种情况下，我们可以在我们的generator中引入Promises来处理，就像下面这样：
 
 ```javascript
 function request(url) {
@@ -918,8 +912,7 @@ function request(url) {
 }
 ```
 
-And we write a function which will step through our generator using `next` which in turn will utilize our
-`request` method above to yield a Promise:
+我们再写一个函数，其中使用 `next` 来步进我们的generator的同事，再利用我们上面的 `request` 方法来产生（yield）一个Promise。
 
 ```javascript
 function iterateGenerator(gen) {
@@ -934,10 +927,8 @@ function iterateGenerator(gen) {
 }
 ```
 
-<sup>[(回到目录)](#table-of-contents)</sup>
-
-By augmenting our Generator with Promises, we have a clear way of propogating errors through the use of our
-Promise `.catch` and `reject`. To use our newly augmented Generator, it is as simple as before:
+在Generator中引入了Promises后，我们就可以通过Promise的 `.catch` 和 `reject` 来捕捉和处理错误了。
+使用了我们新版的Generator后，新版的调用就像老版本一样简单可读（译者注：有微调）：
 
 ```javascript
 iterateGenerator(function* getData() {
@@ -948,17 +939,15 @@ iterateGenerator(function* getData() {
 });
 ```
 
-We were able to reuse our implementation to use our Generator as before, which shows their power. While Generators
-and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propogate
-errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits:
-[async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await).
+在使用Generator后，我们可以重用我们的老版本代码实现，以此展示了Generator的力量。
+当使用Generators和Promises后，我们可以像书写同步代码一样书写异步代码的同时优雅地解决了错误处理问题。
+此后，我们实际上可以开始利用更简单的一种方式了，它就是[async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await)。
 
 <sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Async Await
 
-While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished
-using Generators and Promises with less effort:
+`async await` 随着ES2016版本就要发布了，它给我们提供了一种更轻松的、更简单的可以替代的实现上面 Generators 配合 Promises 组合代码的一种编码方式，让我们来看看例子：
 
 ```javascript
 var request = require('request');
@@ -979,7 +968,7 @@ async function main() {
 main();
 ```
 
-Under the hood, it performs similarly to Generators. I highly recommend using them over Generators + Promises. A great resource
-for getting up and running with ES7 and Babel can be found [here](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html).
+它们看上去和Generators很像。我（作者）强烈推荐使用 `async await` 来替代Generators + Promises的写法。
+[这里](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html)是个很好的学习资源，让我们学习和使用这项ES7中的新功能。
 
 <sup>[(回到目录)](#table-of-contents)</sup>
