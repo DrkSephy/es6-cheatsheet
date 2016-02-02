@@ -17,6 +17,8 @@
 - [Maps](#maps)
 - [WeakMaps](#weakmaps)
 - [Promises](#promises)
+- [Generators](#generators)
+- [Async Await](#async-await)
 
 ## var versus let / const
 
@@ -67,7 +69,7 @@ let x = 'hi'; // ReferenceError: x is not defined
 
 > **最佳实践**: 在重构老代码时，`var` 声明需要格外的注意。在创建一个新项目时，使用 `let` 声明一个变量，使用 `const` 来声明一个不可改变的常量。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Replacing IIFEs with Blocks
 
@@ -92,7 +94,7 @@ console.log(food); // Reference Error
 console.log(food); // Reference Error
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Arrow Functions
 
@@ -181,7 +183,7 @@ const squares = arr.map(x => x * x); // Arrow Function for terser implementation
 
 > **最佳实践**：尽可能地多使用 **箭头函数**。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Strings
 
@@ -291,7 +293,7 @@ let today = new Date();
 let text = `The time and date is ${today.toLocaleString()}`;
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Destructuring
 
@@ -318,7 +320,7 @@ console.log(b); // 2
 
 ### Destructuring Objects
 
-**结构对象**
+**解构对象**
 
 ```javascript
 var luke = { occupation: 'jedi', father: 'anakin' };
@@ -334,7 +336,7 @@ console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Modules
 
@@ -458,7 +460,7 @@ const { Component, PropTypes } = React;
 > **注意**：被导出的值是被 **绑定的（原文：bingdings）**，而不是引用。
 所以，改变一个模块中的值的话，会影响其他引用本模块的代码，一定要避免此种改动发生。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Parameters
 
@@ -553,7 +555,7 @@ function initializeCanvas(
 Math.max(...[-1, 100, 9001, -32]); // 9001
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Classes
 
@@ -623,7 +625,7 @@ class Personal extends Person {
 
 > **最佳实践**：ES6新的类语法把我们从晦涩难懂的实现和原型操作中解救出来，这是个非常适合初学者的功能，而且能让我们写出更干净整洁的代码。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Symbols
 
@@ -643,7 +645,7 @@ object[keyTwo] = 'Much Uniqueness';
 >> false
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Maps
 
@@ -700,9 +702,10 @@ for (let [key, value] of map.entries()) {
 }
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## WeakMaps
+
 
 In order to store private data in < ES5, we had various ways of doing this.
 One such method was using naming conventions:
@@ -771,7 +774,7 @@ value = map.get(el); // undefined
 > **提示**：结合这个例子，再考虑下jQuery是如何实现缓存带有引用的DOM元素这个功能的，使用了WeakMaps的话，当被缓存的DOM元素被移除的时，jQuery可以自动释放相应元素的内存。
 通常情况下，在涉及DOM元素存储和缓存的情况下，使用WeakMaps是非常适合的。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Promises
 
@@ -849,3 +852,136 @@ Promise.all(urlPromises)
         console.log('Failed: ', err);
     });
 ```
+
+<sup>[(回到目录)](#table-of-contents)</sup>
+
+## Generators
+
+Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid
+[callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our
+asynchronous code a synchronous feel. Generators are essentially functions which we can
+[pause their excution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
+and subsequently return the value of an expression.
+
+A simple example of using generators is shown below:
+
+```javascript
+function* sillyGenerator() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
+
+var generator = sillyGenerator();
+var value = generator.next();
+> console.log(value); // { value: 1, done: false }
+> console.log(value); // { value: 2, done: false }
+> console.log(value); // { value: 3, done: false }
+> console.log(value); // { value: 4, done: false }
+```
+
+Where [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
+will allow us to push our generator forward and evaluate a new expression. While the above example is extremely
+contrived, we can utilize Generators to write asynchronous code in a synchronous manner:
+
+```javascript
+// Hiding asynchronousity with Generators
+
+function request(url) {
+    getJSON(url, function(response) {
+        generator.next(response);
+    });
+}
+```
+
+And here we write a generator function that will return our data:
+
+```javascript
+function* getData() {
+    var entry1 = yield request('http://some_api/item1');
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request('http://some_api/item2');
+    var data2  = JSON.parse(entry2);
+}
+```
+
+By the power of `yield`, we are gauranteed that `entry1` will have the data needed to be parsed and stored
+in `data1`.
+
+While generators allow us to write asynchronous code in a synchronous manner, there is no clear
+and easy path for error propagation. As such, as we can augment our generator with Promises:
+
+```javascript
+function request(url) {
+    return new Promise((resolve, reject) => {
+        getJSON(url, resolve);
+    });
+}
+```
+
+And we write a function which will step through our generator using `next` which in turn will utilize our
+`request` method above to yield a Promise:
+
+```javascript
+function iterateGenerator(gen) {
+    var generator = gen();
+    var ret;
+    (function iterate(val) {
+        ret = generator.next();
+        if(!ret.done) {
+            ret.value.then(iterate);
+        }
+    })();
+}
+```
+
+<sup>[(回到目录)](#table-of-contents)</sup>
+
+By augmenting our Generator with Promises, we have a clear way of propogating errors through the use of our
+Promise `.catch` and `reject`. To use our newly augmented Generator, it is as simple as before:
+
+```javascript
+iterateGenerator(function* getData() {
+    var entry1 = yield request('http://some_api/item1');
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request('http://some_api/item2');
+    var data2  = JSON.parse(entry2);
+});
+```
+
+We were able to reuse our implementation to use our Generator as before, which shows their power. While Generators
+and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propogate
+errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits:
+[async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await).
+
+<sup>[(回到目录)](#table-of-contents)</sup>
+
+## Async Await
+
+While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished
+using Generators and Promises with less effort:
+
+```javascript
+var request = require('request');
+
+function getJSON(url) {
+  return new Promise(function(resolve, reject) {
+    request(url, function(error, response, body) {
+      resolve(body);
+    });
+  });
+}
+
+async function main() {
+  var data = await getJSON();
+  console.log(data); // NOT undefined!
+}
+
+main();
+```
+
+Under the hood, it performs similarly to Generators. I highly recommend using them over Generators + Promises. A great resource
+for getting up and running with ES7 and Babel can be found [here](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html).
+
+<sup>[(回到目录)](#table-of-contents)</sup>
