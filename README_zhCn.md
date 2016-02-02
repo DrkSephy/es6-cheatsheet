@@ -706,9 +706,7 @@ for (let [key, value] of map.entries()) {
 
 ## WeakMaps
 
-
-In order to store private data in < ES5, we had various ways of doing this.
-One such method was using naming conventions:
+在ES5之前的版本，我们为了存储私有数据，有好几种方法。像使用这种下划线命名约定：
 
 ```javascript
 class Person {
