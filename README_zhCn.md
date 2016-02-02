@@ -17,6 +17,8 @@
 - [Maps](#maps)
 - [WeakMaps](#weakmaps)
 - [Promises](#promises)
+- [Generators](#generators)
+- [Async Await](#async-await)
 
 ## var versus let / const
 
@@ -67,7 +69,7 @@ let x = 'hi'; // ReferenceError: x is not defined
 
 > **最佳实践**: 在重构老代码时，`var` 声明需要格外的注意。在创建一个新项目时，使用 `let` 声明一个变量，使用 `const` 来声明一个不可改变的常量。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Replacing IIFEs with Blocks
 
@@ -92,7 +94,7 @@ console.log(food); // Reference Error
 console.log(food); // Reference Error
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Arrow Functions
 
@@ -181,7 +183,7 @@ const squares = arr.map(x => x * x); // Arrow Function for terser implementation
 
 > **最佳实践**：尽可能地多使用 **箭头函数**。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Strings
 
@@ -291,7 +293,7 @@ let today = new Date();
 let text = `The time and date is ${today.toLocaleString()}`;
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Destructuring
 
@@ -334,7 +336,7 @@ console.log(occupation); // 'jedi'
 console.log(father); // 'anakin'
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Modules
 
@@ -458,7 +460,7 @@ const { Component, PropTypes } = React;
 > **注意**：被导出的值是被 **绑定的（原文：bingdings）**，而不是引用。
 所以，改变一个模块中的值的话，会影响其他引用本模块的代码，一定要避免此种改动发生。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Parameters
 
@@ -553,7 +555,7 @@ function initializeCanvas(
 Math.max(...[-1, 100, 9001, -32]); // 9001
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Classes
 
@@ -623,27 +625,71 @@ class Personal extends Person {
 
 > **最佳实践**：ES6新的类语法把我们从晦涩难懂的实现和原型操作中解救出来，这是个非常适合初学者的功能，而且能让我们写出更干净整洁的代码。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Symbols
 
-符号在ES6版本之前就已经存在了，但现在我们拥有一个公共的接口来直接使用它们。
-下面的例子是创建了两个永远不会冲突的属性。
+符号（Symbols）在ES6版本之前就已经存在了，但现在我们拥有一个公共的接口来直接使用它们。
+Symbols对象是一旦创建就不可以被更改的（immutable）而且能被用做hash数据类型中的键。
+
+### Symbol( )
+调用 `Symbol()` 或者 `Symbol(描述文本)` 会创建一个唯一的、在全局中不可以访问的符号对象。
+一个 `Symbol()` 的应用场景是：在自己的项目中使用第三方代码库，且你需要给他们的对象或者命名空间打补丁代码，又不想改动或升级第三方原有代码的时候。
+举个例子，如果你想给 `React.Component` 这个类添加一个 `refreshComponent` 方法，但又确定不了这个方法会不会在下个版本中加入，你可以这么做：
 
 ```javascript
-const key = Symbol();
-const keyTwo = Symbol();
-const object = {};
+const refreshComponent = Symbol();
 
-object[key] = 'Such magic.';
-object[keyTwo] = 'Much Uniqueness';
-
-// Two Symbols will never have the same value
->> key === keyTwo
->> false
+React.Component.prototype[refreshComponent] = () => {
+    // do something
+}
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+### Symbol.for(key)
+
+使用 `Symbol.for(key)` 也是会创建一个不可改变的Symbol对象，但区别于上面的创建方法，这个对象是在全局中可以被访问到的。
+调用两次 `Symbol.for(key)` 会返回相同的Symbol实例。
+
+**提示**：这并不同于 `Symbol(description)`。
+
+```javascript
+Symbol('foo') === Symbol('foo') // false
+Symbol.for('foo') === Symbol('foo') // false
+Symbol.for('foo') === Symbol.for('foo') // true
+```
+
+一个Symbols常用的使用场景，是需要使用特别 `Symbol.for(key)` 方法来实现代码间的协作。
+这能让你在你的代码中，查找包含已知的接口的第三方代码中Symbol成员。（译者：这句话好难翻。。。原文：This can be
+achieved by having your code look for a Symbol member on object arguments from third parties that contain some known interface. ）举个例子：
+
+```javascript
+function reader(obj) {
+    const specialRead = Symbol.for('specialRead');
+    if (obj[specialRead]) {
+        const reader = obj[specialRead]();
+        // do something with reader
+    } else {
+        throw new TypeError('object cannot be read');
+    }
+}
+```
+
+之后在另一个库中：
+
+```javascript
+const specialRead = Symbol.for('specialRead');
+
+class SomeReadableType {
+    [specialRead]() {
+        const reader = createSomeReaderFrom(this);
+        return reader;
+    }
+}
+```
+
+> **注意**：`Symbol.iterable` 在ES6中像其他可枚举的对象，如数组，字符串，generators一样，当这个方法被调用时会激活一个枚举器并返回一个对象。
+
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Maps
 
@@ -700,12 +746,11 @@ for (let [key, value] of map.entries()) {
 }
 ```
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## WeakMaps
 
-In order to store private data in < ES5, we had various ways of doing this.
-One such method was using naming conventions:
+在ES5之前的版本，我们为了存储私有数据，有好几种方法。像使用这种下划线命名约定：
 
 ```javascript
 class Person {
@@ -771,7 +816,7 @@ value = map.get(el); // undefined
 > **提示**：结合这个例子，再考虑下jQuery是如何实现缓存带有引用的DOM元素这个功能的，使用了WeakMaps的话，当被缓存的DOM元素被移除的时，jQuery可以自动释放相应元素的内存。
 通常情况下，在涉及DOM元素存储和缓存的情况下，使用WeakMaps是非常适合的。
 
-<sup>[(back to table of contents)](#table-of-contents)</sup>
+<sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Promises
 
@@ -849,3 +894,125 @@ Promise.all(urlPromises)
         console.log('Failed: ', err);
     });
 ```
+
+<sup>[(回到目录)](#table-of-contents)</sup>
+
+## Generators
+
+就像[Promises](https://github.com/DrkSephy/es6-cheatsheet#promises)如何让我们避免[回调地狱](http://callbackhell.com/)一样，Generators也可以使我们的代码扁平化，同时给予我们开发者像开发同步代码一样的感觉来写异步代码。Generators本质上是一种支持的函数，随后返回表达式的值。
+Generators实际上是支持[暂停运行](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)，随后根据上一步的返回值再继续运行的一种函数。
+
+下面代码是一个使用generators函数的简单例子：
+
+```javascript
+function* sillyGenerator() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
+
+var generator = sillyGenerator();
+var value = generator.next();
+> console.log(value); // { value: 1, done: false }
+> console.log(value); // { value: 2, done: false }
+> console.log(value); // { value: 3, done: false }
+> console.log(value); // { value: 4, done: false }
+```
+
+就像上面的例子，当[next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)运行时，它会把我们的generator向前“推动”，同时执行新的表达式。
+我们能利用Generators来像书写同步代码一样书写异步代码。
+
+```javascript
+// Hiding asynchronousity with Generators
+
+function request(url) {
+    getJSON(url, function(response) {
+        generator.next(response);
+    });
+}
+```
+
+这里我们写个generator函数将要返回我们的数据：
+
+```javascript
+function* getData() {
+    var entry1 = yield request('http://some_api/item1');
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request('http://some_api/item2');
+    var data2  = JSON.parse(entry2);
+}
+```
+
+借助于 `yield`，我们可以保证 `entry1` 确实拿到数据并转换后再赋值给 `data1`。
+
+当我们使用generators来像书写同步代码一样书写我们的异步代码逻辑时，没有一种清晰简单的方式来处理期间可能会产生的错误或者异常。在这种情况下，我们可以在我们的generator中引入Promises来处理，就像下面这样：
+
+```javascript
+function request(url) {
+    return new Promise((resolve, reject) => {
+        getJSON(url, resolve);
+    });
+}
+```
+
+我们再写一个函数，其中使用 `next` 来步进我们的generator的同事，再利用我们上面的 `request` 方法来产生（yield）一个Promise。
+
+```javascript
+function iterateGenerator(gen) {
+    var generator = gen();
+    var ret;
+    (function iterate(val) {
+        ret = generator.next();
+        if(!ret.done) {
+            ret.value.then(iterate);
+        }
+    })();
+}
+```
+
+在Generator中引入了Promises后，我们就可以通过Promise的 `.catch` 和 `reject` 来捕捉和处理错误了。
+使用了我们新版的Generator后，新版的调用就像老版本一样简单可读（译者注：有微调）：
+
+```javascript
+iterateGenerator(function* getData() {
+    var entry1 = yield request('http://some_api/item1');
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request('http://some_api/item2');
+    var data2  = JSON.parse(entry2);
+});
+```
+
+在使用Generator后，我们可以重用我们的老版本代码实现，以此展示了Generator的力量。
+当使用Generators和Promises后，我们可以像书写同步代码一样书写异步代码的同时优雅地解决了错误处理问题。
+此后，我们实际上可以开始利用更简单的一种方式了，它就是[async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await)。
+
+<sup>[(回到目录)](#table-of-contents)</sup>
+
+## Async Await
+
+`async await` 随着ES2016版本就要发布了，它给我们提供了一种更轻松的、更简单的可以替代的实现上面 Generators 配合 Promises 组合代码的一种编码方式，让我们来看看例子：
+
+```javascript
+var request = require('request');
+
+function getJSON(url) {
+  return new Promise(function(resolve, reject) {
+    request(url, function(error, response, body) {
+      resolve(body);
+    });
+  });
+}
+
+async function main() {
+  var data = await getJSON();
+  console.log(data); // NOT undefined!
+}
+
+main();
+```
+
+它们看上去和Generators很像。我（作者）强烈推荐使用 `async await` 来替代Generators + Promises的写法。
+[这里](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html)是个很好的学习资源，让我们学习和使用这项ES7中的新功能。
+
+<sup>[(回到目录)](#table-of-contents)</sup>
