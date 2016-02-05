@@ -1038,9 +1038,8 @@ And we write a function which will step through our generator using `next` which
 ```javascript
 function iterateGenerator(gen) {
     var generator = gen();
-    var ret;
     (function iterate(val) {
-        ret = generator.next();
+        var ret = generator.next();
         if(!ret.done) {
             ret.value.then(iterate);
         } 
