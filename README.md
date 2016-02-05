@@ -986,11 +986,10 @@ function* sillyGenerator() {
 }
 
 var generator = sillyGenerator();
-var value = generator.next();
-> console.log(value); // { value: 1, done: false }
-> console.log(value); // { value: 2, done: false }
-> console.log(value); // { value: 3, done: false }
-> console.log(value); // { value: 4, done: false }
+> console.log(generator.next()); // { value: 1, done: false }
+> console.log(generator.next()); // { value: 2, done: false }
+> console.log(generator.next()); // { value: 3, done: false }
+> console.log(generator.next()); // { value: 4, done: false }
 ```
 
 Where [next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
