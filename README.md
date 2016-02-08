@@ -972,7 +972,7 @@ Promise.all(urlPromises)
 Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid 
 [callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our
 asynchronous code a synchronous feel. Generators are essentially functions which we can 
-[pause their excution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
+[pause their execution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
 and subsequently return the value of an expression.
 
 A simple example of using generators is shown below:
@@ -1017,7 +1017,7 @@ function* getData() {
 }
 ```
 
-By the power of `yield`, we are gauranteed that `entry1` will have the data needed to be parsed and stored
+By the power of `yield`, we are guaranteed that `entry1` will have the data needed to be parsed and stored
 in `data1`. 
 
 While generators allow us to write asynchronous code in a synchronous manner, there is no clear 
@@ -1046,7 +1046,7 @@ function iterateGenerator(gen) {
 }
 ```
 
-By augmenting our Generator with Promises, we have a clear way of propogating errors through the use of our 
+By augmenting our Generator with Promises, we have a clear way of propagating errors through the use of our 
 Promise `.catch` and `reject`. To use our newly augmented Generator, it is as simple as before:
 
 ```javascript
@@ -1059,7 +1059,7 @@ iterateGenerator(function* getData() {
 ```
 
 We were able to reuse our implementation to use our Generator as before, which shows their power. While Generators
-and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propogate
+and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propagate
 errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits:
 [async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await).
 
