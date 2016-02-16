@@ -872,7 +872,7 @@ el = null;
 value = map.get(el); // undefined
 ```
 
-As shown above, once the object is is destroyed by the garbage collector,
+As shown above, once the object is destroyed by the garbage collector,
 the WeakMap will automatically remove the key-value pair which was identified
 by that object.
 
