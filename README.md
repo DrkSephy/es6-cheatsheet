@@ -1098,7 +1098,7 @@ for getting up and running with ES7 and Babel can be found [here](http://masnun.
 
 ES6 has started supporting getter and setter functions. Using following example:-
 
-```
+```javascript
 class Employee {
 
     constructor(name) {
@@ -1106,52 +1106,56 @@ class Employee {
     }
 
     get name() {
-        if(this._name) {
-          return 'Mr. ' + this._name.toUpperCase();  
-        } else {
-          return undefined;
-        }
-        
+      if(this._name) {
+        return 'Mr. ' + this._name.toUpperCase();  
+      } else {
+        return undefined;
+      }  
     }
 
     set name(newName) {
-        if(newName == this._name) { 
-          console.log('I already have this name.');
-        } else if(newName) {
-          this._name = newName;
-        } else {
-          return false;
-        }
+      if (newName == this._name) { 
+        console.log('I already have this name.');
+      } else if (newName) {
+        this._name = newName;
+      } else {
+        return false;
+      }
     }
 }
+
 var emp = new Employee("James Bond");
-if(emp.name) { // uses the get method in the background
+
+// uses the get method in the background
+if (emp.name) { 
   console.log(emp.name);  // Mr. James Bond
 }
-emp.name = "Bond 007"; // uses the setter in the background
+
+// uses the setter in the background
+emp.name = "Bond 007"; 
 console.log(emp.name);  // Mr. Bond 007  
 ```
-Latest browsers are also supporting getter/setter functions in Objects and we can you them for computed properties, adding listeners, preprocessing before setting/getting :-
 
-```
+Latest browsers are also supporting getter/setter functions in Objects and we can use them for computed properties, adding listeners and preprocessing before setting/getting:
+
+```javascript
 var person = {
-    firstName: 'James',
-    lastName: 'Bond',
-    get fullName() {
-        console.log('Setting FullName');
-        return this.firstName + ' ' + this.lastName;
-    },
-    set fullName (name) {
-        console.log('Getting FullName');
-        var words = name.toString().split(' ');
-        this.firstName = words[0] || '';
-        this.lastName = words[1] || '';
-    }
+  firstName: 'James',
+  lastName: 'Bond',
+  get fullName() {
+      console.log('Setting FullName');
+      return this.firstName + ' ' + this.lastName;
+  },
+  set fullName (name) {
+      console.log('Getting FullName');
+      var words = name.toString().split(' ');
+      this.firstName = words[0] || '';
+      this.lastName = words[1] || '';
+  }
 }
+
 person.fullName; // James Bond
-
 person.fullName = 'Bond 007';
-
 person.fullName; // Bond 007
 ```
 <sup>[(back to table of contents)](#table-of-contents)</sup>
