@@ -19,6 +19,7 @@ snippet examples for your day to day workflow. Contributions are welcome!
 - [Promises](#promises)
 - [Generators](#generators)
 - [Async Await](#async-await)
+- [Getter/Setter functions](#getter-and-setter-functions)
 
 ## var versus let / const
 
@@ -1092,4 +1093,65 @@ main();
 Under the hood, it performs similarly to Generators. I highly recommend using them over Generators + Promises. A great resource
 for getting up and running with ES7 and Babel can be found [here](http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html).
 
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+## Getter and setter functions
+
+ES6 has started supporting getter and setter functions. Using following example:-
+
+```
+class Employee {
+
+    constructor(name) {
+        this._name = name;
+    }
+
+    get name() {
+        if(this._name) {
+          return 'Mr. ' + this._name.toUpperCase();  
+        } else {
+          return undefined;
+        }
+        
+    }
+
+    set name(newName) {
+        if(newName == this._name) { 
+          console.log('I already have this name.');
+        } else if(newName) {
+          this._name = newName;
+        } else {
+          return false;
+        }
+    }
+}
+var emp = new Employee("James Bond");
+if(emp.name) { // uses the get method in the background
+  console.log(emp.name);  // Mr. James Bond
+}
+emp.name = "Bond 007"; // uses the setter in the background
+console.log(emp.name);  // Mr. Bond 007  
+```
+Latest browsers are also supporting getter/setter functions in Objects and we can you them for computed properties, adding listeners, preprocessing before setting/getting :-
+
+```
+var person = {
+    firstName: 'James',
+    lastName: 'Bond',
+    get fullName() {
+        console.log('Setting FullName');
+        return this.firstName + ' ' + this.lastName;
+    },
+    set fullName (name) {
+        console.log('Getting FullName');
+        var words = name.toString().split(' ');
+        this.firstName = words[0] || '';
+        this.lastName = words[1] || '';
+    }
+}
+person.fullName; // James Bond
+
+person.fullName = 'Bond 007';
+
+person.fullName; // Bond 007
+```
 <sup>[(back to table of contents)](#table-of-contents)</sup>
