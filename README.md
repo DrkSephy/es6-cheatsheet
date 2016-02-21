@@ -598,6 +598,25 @@ let cities = ['San Francisco', 'Los Angeles'];
 let places = ['Miami', ...cities, 'Chicago']; // ['Miami', 'San Francisco', 'Los Angeles', 'Chicago']
 ```
 
+### Fail-Soft Destructuring
+
+Once you get used to using destructuring and learn about default params you may want to marry both
+and provide default values when you destructure
+
+```javascript
+const foo = [1, 2]
+let [a=5, b=5, c=5] = foo
+console.log(a, b, c) // 1, 2, 5
+```
+
+works with objects as well
+
+```javascript
+const foo = {a: 1, b: 2}
+let {a, b, c=5} = foo
+console.log(a, b, c) // 1, 2, 5
+```
+
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## Classes
