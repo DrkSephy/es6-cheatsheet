@@ -424,6 +424,10 @@ let api = {
 };
 
 export default api;
+
+/* Which is the same as 
+ * export { api as default };
+ */
 ```
 
 > **Best Practices**: Always use the `export default` method at **the end** of
@@ -471,8 +475,28 @@ Lastly, we can import a list of values from a module:
 import * as additionUtil from 'math/addition';
 const { sumTwo, sumThree } = additionUtil;
 ```
+Importing from the default binding like this:
 
-When importing the default object we can choose which functions to import:
+```javascript
+import api from 'math/addition';
+// Same as: import { default as api } from 'math/addition';
+```
+
+While it is better to keep the exports simple, but we can sometimes mix default import and mixed import if needed.
+When we are exporting like this:
+
+```javascript
+// foos.js
+export { foo as default, foo1, foo2 };
+```
+
+We can import them like the following:
+
+```javaqscript
+import foo, { foo1, foo2 } from 'foos';
+```
+
+When importing a module exported using commonjs syntax (such as React) we can do:
 
 ```javascript
 import React from 'react';

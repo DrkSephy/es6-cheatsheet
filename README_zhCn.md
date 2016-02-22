@@ -449,12 +449,36 @@ import * as util from 'math/addition';
 import * as additionUtil from 'math/addtion';
 const { sumTwo, sumThree } = additionUtil;
 ```
+像这样引用默认对象：
 
-当我们引用默认对象，我们可以选择其中的函数：
+```javascript
+import api from 'math/addition';
+// Same as: import { default as api } from 'math/addition';
+```
+
+我们建议一个模块导出的值应该越简洁越好，不过有时候有必要的话命名引用和默认引用可以混着用。如果一个模块是这样导出的：
+
+```javascript
+// foos.js
+export { foo as default, foo1, foo2 };
+```
+那我们可以如此导入这个模块的值：
+
+```javaqscript
+import foo, { foo1, foo2 } from 'foos';
+```
+
+我们还可以导入commonjs模块，例如React：
 
 ```javascript
 import React from 'react';
 const { Component, PropTypes } = React;
+```
+
+更简化版本：
+
+```javascript
+import React, { Component, PropTypes } from 'react';
 ```
 
 > **注意**：被导出的值是被 **绑定的（原文：bingdings）**，而不是引用。
