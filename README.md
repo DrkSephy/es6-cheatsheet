@@ -1178,11 +1178,11 @@ var person = {
   firstName: 'James',
   lastName: 'Bond',
   get fullName() {
-      console.log('Setting FullName');
+      console.log('Getting FullName');
       return this.firstName + ' ' + this.lastName;
   },
   set fullName (name) {
-      console.log('Getting FullName');
+      console.log('Setting FullName');
       var words = name.toString().split(' ');
       this.firstName = words[0] || '';
       this.lastName = words[1] || '';
