@@ -763,7 +763,7 @@ class SomeReadableType {
 }
 ```
 
-> A notable example of Symbol use for interoperability is `Symbol.iterable` which exists on all iterable and iterator
+> A notable example of Symbol use for interoperability is `Symbol.iterator` which exists on all iterable
 types in ES6: Arrays, strings, generators, etc. When called as a method it returns an object with an Iterator 
 interface.
 
