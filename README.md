@@ -492,7 +492,7 @@ export { foo as default, foo1, foo2 };
 
 We can import them like the following:
 
-```javaqscript
+```javascript
 import foo, { foo1, foo2 } from 'foos';
 ```
 
