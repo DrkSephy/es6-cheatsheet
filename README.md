@@ -1171,7 +1171,6 @@ emp.name = "Bond 007";
 console.log(emp.name);  // Mr. BOND 007  
 ```
 
-
 Latest browsers are also supporting getter/setter functions in Objects and we can use them for computed properties, adding listeners and preprocessing before setting/getting:
 
 ```javascript
