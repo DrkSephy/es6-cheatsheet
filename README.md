@@ -1163,12 +1163,12 @@ var emp = new Employee("James Bond");
 
 // uses the get method in the background
 if (emp.name) { 
-  console.log(emp.name);  // Mr. James Bond
+  console.log(emp.name);  // Mr. JAMES BOND
 }
 
 // uses the setter in the background
 emp.name = "Bond 007"; 
-console.log(emp.name);  // Mr. Bond 007  
+console.log(emp.name);  // Mr. BOND 007  
 ```
 
 Latest browsers are also supporting getter/setter functions in Objects and we can use them for computed properties, adding listeners and preprocessing before setting/getting:
