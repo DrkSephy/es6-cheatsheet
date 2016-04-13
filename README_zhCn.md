@@ -236,7 +236,7 @@ var text = "This string contains \"double quotes\" which are escaped.";
 ```
 
 ```javascript
-let text = `This string contains "double quotes" which are escaped.`;
+let text = `This string contains "double quotes" which don't need to be escaped anymore.`;
 ```
 
 **字符串模板字面量** 还支持直接插入变量，可以实现字符串与变量的直接连接输出。
