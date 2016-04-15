@@ -68,9 +68,9 @@ block-scoped identifiers before they are defined will produce
 a `ReferenceError`.
 
 ```javascript
-console.log(x);
+console.log(x); // ReferenceError: x is not defined
 
-let x = 'hi'; // ReferenceError: x is not defined
+let x = 'hi';
 ```
 
 > **Best Practice**: Leave `var` declarations inside of legacy code to denote
