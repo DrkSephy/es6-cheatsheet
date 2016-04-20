@@ -254,7 +254,7 @@ var text = "This string contains \"double quotes\" which are escaped.";
 ```
 
 ```javascript
-let text = `This string contains "double quotes" which are escaped.`;
+let text = `This string contains "double quotes" which don't need to be escaped anymore.`;
 ```
 
 **Template Literals** also support interpolation, which makes the task of
