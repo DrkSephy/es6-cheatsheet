@@ -894,7 +894,7 @@ let value = map.get(el); // 'reference'
 el.parentNode.removeChild(el);
 el = null;
 
-value = map.get(el); // undefined
+// map is empty, since the element is destroyed 
 ```
 
 As shown above, once the object is destroyed by the garbage collector,
