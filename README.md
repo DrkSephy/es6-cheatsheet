@@ -99,7 +99,7 @@ Using ES6 Blocks:
 ```javascript
 {
     let food = 'Meow Mix';
-}
+};
 
 console.log(food); // Reference Error
 ```
@@ -425,7 +425,7 @@ let api = {
 
 export default api;
 
-/* Which is the same as 
+/* Which is the same as
  * export { api as default };
  */
 ```
@@ -725,7 +725,7 @@ React.Component.prototype[refreshComponent] = () => {
 ### Symbol.for(key)
 
 `Symbol.for(key)` will create a Symbol that is still immutable and unique, but can be looked up globally.
-Two identical calls to `Symbol.for(key)` will return the same Symbol instance. NOTE: This is not true for 
+Two identical calls to `Symbol.for(key)` will return the same Symbol instance. NOTE: This is not true for
 `Symbol(description)`:
 
 ```javascript
@@ -734,8 +734,8 @@ Symbol.for('foo') === Symbol('foo') // false
 Symbol.for('foo') === Symbol.for('foo') // true
 ```
 
-A common use case for Symbols, and in particular with `Symbol.for(key)` is for interoperability. This can be 
-achieved by having your code look for a Symbol member on object arguments from third parties that contain some 
+A common use case for Symbols, and in particular with `Symbol.for(key)` is for interoperability. This can be
+achieved by having your code look for a Symbol member on object arguments from third parties that contain some
 known interface. For example:
 
 ```javascript
@@ -764,7 +764,7 @@ class SomeReadableType {
 ```
 
 > A notable example of Symbol use for interoperability is `Symbol.iterator` which exists on all iterable
-types in ES6: Arrays, strings, generators, etc. When called as a method it returns an object with an Iterator 
+types in ES6: Arrays, strings, generators, etc. When called as a method it returns an object with an Iterator
 interface.
 
 <sup>[(back to table of contents)](#table-of-contents)</sup>
@@ -894,7 +894,7 @@ let value = map.get(el); // 'reference'
 el.parentNode.removeChild(el);
 el = null;
 
-// map is empty, since the element is destroyed 
+// map is empty, since the element is destroyed
 ```
 
 As shown above, once the object is destroyed by the garbage collector,
@@ -1005,9 +1005,9 @@ Promise.all(promises)
 
 ## Generators
 
-Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid 
+Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid
 [callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our
-asynchronous code a synchronous feel. Generators are essentially functions which we can 
+asynchronous code a synchronous feel. Generators are essentially functions which we can
 [pause their execution](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
 and subsequently return the value of an expression.
 
@@ -1054,9 +1054,9 @@ function* getData() {
 ```
 
 By the power of `yield`, we are guaranteed that `entry1` will have the data needed to be parsed and stored
-in `data1`. 
+in `data1`.
 
-While generators allow us to write asynchronous code in a synchronous manner, there is no clear 
+While generators allow us to write asynchronous code in a synchronous manner, there is no clear
 and easy path for error propagation. As such, as we can augment our generator with Promises:
 
 ```javascript
@@ -1077,12 +1077,12 @@ function iterateGenerator(gen) {
         var ret = generator.next();
         if(!ret.done) {
             ret.value.then(iterate);
-        } 
-    })(); 
+        }
+    })();
 }
 ```
 
-By augmenting our Generator with Promises, we have a clear way of propagating errors through the use of our 
+By augmenting our Generator with Promises, we have a clear way of propagating errors through the use of our
 Promise `.catch` and `reject`. To use our newly augmented Generator, it is as simple as before:
 
 ```javascript
@@ -1103,12 +1103,12 @@ errors in a nice way, we can actually begin to utilize a simpler construction th
 
 ## Async Await
 
-While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished 
+While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished
 using Generators and Promises with less effort:
 
 ```javascript
 var request = require('request');
- 
+
 function getJSON(url) {
   return new Promise(function(resolve, reject) {
     request(url, function(error, response, body) {
@@ -1116,12 +1116,12 @@ function getJSON(url) {
     });
   });
 }
- 
+
 async function main() {
   var data = await getJSON();
   console.log(data); // NOT undefined!
 }
- 
+
 main();
 ```
 
@@ -1149,7 +1149,7 @@ class Employee {
     }
 
     set name(newName) {
-      if (newName == this._name) { 
+      if (newName == this._name) {
         console.log('I already have this name.');
       } else if (newName) {
         this._name = newName;
@@ -1162,12 +1162,12 @@ class Employee {
 var emp = new Employee("James Bond");
 
 // uses the get method in the background
-if (emp.name) { 
+if (emp.name) {
   console.log(emp.name);  // Mr. JAMES BOND
 }
 
 // uses the setter in the background
-emp.name = "Bond 007"; 
+emp.name = "Bond 007";
 console.log(emp.name);  // Mr. BOND 007  
 ```
 
