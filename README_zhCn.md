@@ -89,7 +89,7 @@ console.log(food); // Reference Error
 ```javascript
 {
     let food = 'Meow Mix';
-}
+};
 
 console.log(food); // Reference Error
 ```

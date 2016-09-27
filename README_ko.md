@@ -88,7 +88,7 @@ ES6 블록을 사용하는 경우,
 ```javascript
 {
     let food = '허니버터칩';
-}
+};
 
 console.log(food); // Reference Error
 ```
