@@ -405,6 +405,11 @@ let api = {
 };
 
 export default api;
+
+/*
+ * 与以下的语句是对等的:
+ * export { api as default };
+ */
 ```
 
 > **最佳实践**：总是在模块的 **最后** 使用 `export default` 方法。
