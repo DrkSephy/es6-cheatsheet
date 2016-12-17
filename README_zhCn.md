@@ -405,12 +405,17 @@ let api = {
 };
 
 export default api;
+
+/*
+ * 与以下的语句是对等的:
+ * export { api as default };
+ */
 ```
 
 > **最佳实践**：总是在模块的 **最后** 使用 `export default` 方法。
 它让模块的出口更清晰明了，节省了阅读整个模块来寻找出口的时间。
 更多的是，在大量CommonJS模块中，通用的习惯是设置一个出口值或者出口对象。
-最受这个规则，可以让我们的代码更易读，且更方便的联合使用CommonJS和ES6模块。
+坚持这个规则，可以让我们的代码更易读，且更方便的联合使用CommonJS和ES6模块。
 
 ### Importing in ES6
 
