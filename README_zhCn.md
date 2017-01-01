@@ -822,7 +822,7 @@ class Person {
 > Reflect.ownKeys(person); // []
 ```
 
-一个使用WeakMaps存储数据更实际的例子，就是有关于一个DOM元素和对该DOM元素（有污染）地操作：
+一个使用WeakMaps存储数据更实际的例子，是存储与DOM元素相关联的数据，而这不会对DOM元素本身产生污染：
 
 ```javascript
 let map = new WeakMap();
@@ -841,16 +841,16 @@ el = null;
 value = map.get(el); // undefined
 ```
 
-上面的例子中，一个对象被垃圾回收期给销毁了，WeakMaps会自动的把自己内部所对应的键值对数据同时销毁。
+上面的例子中，一旦对象被垃圾回收器给销毁了，WeakMaps会自动的把这个对象所对应的键值对数据同时销毁。
 
-> **提示**：结合这个例子，再考虑下jQuery是如何实现缓存带有引用的DOM元素这个功能的，使用了WeakMaps的话，当被缓存的DOM元素被移除的时，jQuery可以自动释放相应元素的内存。
-通常情况下，在涉及DOM元素存储和缓存的情况下，使用WeakMaps是非常适合的。
+> **提示**：结合这个例子，再考虑下jQuery是如何实现缓存带有引用的DOM元素这个功能的。使用WeakMaps的话，当被缓存的DOM元素被移除的时，jQuery可以自动释放相应元素的内存。
+通常情况下，在涉及DOM元素存储和缓存的情况下，使用WeakMaps是非常有效的。
 
 <sup>[(回到目录)](#table-of-contents)</sup>
 
 ## Promises
 
-Promises让我们让我们多缩进难看的代码（回调地狱）：
+Promises让我们把多缩进难看的代码（回调地狱）：
 
 ```javascript
 func1(function (value1) {
@@ -889,40 +889,51 @@ new Promise((resolve, reject) =>
 
 这里有两个处理函数，**resolve**（当Promise执行成功完毕时调用的回调函数） 和 **reject** （当Promise执行不接受时调用的回调函数）
 
-> **Promises的好处**：大量嵌套错误回调函数会使代码变得难以阅读理解。
-使用了Promises，我们可以让我们代码变得更易读，组织起来更合理。
-此外，Promise处理后的值，无论是解决还是拒绝的结果值，都是不可改变的。
+> **Promises的好处**：大量嵌套错误处理回调函数会使代码变得难以阅读理解。
+使用Promises，我们可以通过清晰的路径将错误事件让上传递，并且适当地处理它们。
+此外，Promise处理后的值，无论是解决（resolved）还是拒绝（rejected）的结果值，都是不可改变的。
 
 下面是一些使用Promises的实际例子：
 
 ```javascript
-var fetchJSON = function(url) {
-    return new Promise((resolve, reject) => {
-        $.getJSON(url)
-            .done((json) => resolve(json))
-            .fail((xhr, status, err) => reject(status + err.message));
-    });
-};
+var request = require('request');
+
+return new Promise((resolve, reject) => {
+  request.get(url, (error, response, body) => {
+    if (body) {
+        resolve(JSON.parse(body));
+      } else {
+        resolve({});
+      }
+  });
+});
 ```
 
-我们还可以使用 `Promise.all()` 来异步的 **并行** 处理一个数组的数据。
+我们还可以使用 `Promise.all()` 来 **并行化** 的处理一组异步的操作。
 
 ```javascript
-var urls = [
-    'http://www.api.com/items/1234',
-    'http://www.api.com/items/4567'
+let urls = [
+  '/api/commits',
+  '/api/issues/opened',
+  '/api/issues/assigned',
+  '/api/issues/completed',
+  '/api/issues/comments',
+  '/api/pullrequests'
 ];
 
-var urlPromises = urls.map(fetchJSON);
+let promises = urls.map((url) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({ url: url })
+      .done((data) => {
+        resolve(data);
+      });
+  });
+});
 
-Promise.all(urlPromises)
-    .then(function (results) {
-        results.forEach(function (data) {
-        });
-    })
-    .catch(function (err) {
-        console.log('Failed: ', err);
-    });
+Promise.all(promises)
+  .then((results) => {
+    // Do something with results of all our promises
+ });
 ```
 
 <sup>[(回到目录)](#table-of-contents)</sup>
