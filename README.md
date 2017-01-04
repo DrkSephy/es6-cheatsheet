@@ -132,10 +132,9 @@ function Person(name) {
 }
 
 Person.prototype.prefixName = function (arr) {
-    var that = this; // Store the context of this
     return arr.map(function (character) {
         return that.name + character;
-    });
+    }, this);
 };
 ```
 
