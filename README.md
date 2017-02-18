@@ -1131,7 +1131,7 @@ for getting up and running with ES7 and Babel can be found [here](http://masnun.
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 ## Getter and setter functions
 
-ES6 has started supporting getter and setter functions. Using the following example:
+ES6 has started supporting getter and setter functions within classes. Using the following example:
 
 ```javascript
 class Employee {
