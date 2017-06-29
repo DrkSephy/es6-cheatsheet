@@ -3,7 +3,7 @@
 A cheatsheet containing ES2015 [ES6] tips, tricks, best practices and code
 snippet examples for your day to day workflow. Contributions are welcome!
 
-## Table of Contents
+## Table of contents
 
 - [var versus let / const](#var-versus-let--const)
 - [Replacing IIFEs with Blocks](#replacing-iifes-with-blocks)
