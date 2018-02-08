@@ -20,6 +20,7 @@ ES2015(ES6)의 Tip & Tricks, 좋은 활용사례들과 코드 예제들이 포�
 - [제너레이터(Generator)](#제너레이터generator)
 - [Async Await](#async-await)
 - [Getter/Setter 함수](#getter와-setter-함수)
+- [License](#License)
 
 ## var VS let / const
 
@@ -1097,4 +1098,30 @@ person.fullName; // 허 솔지
 person.fullName = 'EXID 솔지';
 person.fullName; // EXID 솔지
 ```
+<sup>[(목차로 돌아가기)](#목차)</sup>
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2015 David Leonard
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 <sup>[(목차로 돌아가기)](#목차)</sup>
