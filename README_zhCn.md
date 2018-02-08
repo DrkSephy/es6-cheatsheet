@@ -19,7 +19,7 @@
 - [Promises](#promises)
 - [Generators](#generators)
 - [Async Await](#async-await)
-- [License](#License)
+- [License](#license)
 
 ## var versus let / const
 

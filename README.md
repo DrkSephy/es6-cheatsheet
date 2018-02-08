@@ -20,7 +20,7 @@ snippet examples for your day to day workflow. Contributions are welcome!
 - [Generators](#generators)
 - [Async Await](#async-await)
 - [Getter/Setter functions](#getter-and-setter-functions)
-- [License](#License)
+- [License](#license)
 
 ## var versus let / const
 

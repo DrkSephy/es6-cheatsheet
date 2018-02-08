@@ -20,7 +20,7 @@ ES2015(ES6)의 Tip & Tricks, 좋은 활용사례들과 코드 예제들이 포�
 - [제너레이터(Generator)](#제너레이터generator)
 - [Async Await](#async-await)
 - [Getter/Setter 함수](#getter와-setter-함수)
-- [License](#License)
+- [License](#license)
 
 ## var VS let / const
 
