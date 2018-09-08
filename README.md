@@ -113,6 +113,8 @@ Often times we have nested functions in which we would like to preserve the
 context of `this` from its lexical scope. An example is shown below:
 
 ```javascript
+'use strict';
+
 function Person(name) {
     this.name = name;
 }
