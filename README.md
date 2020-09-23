@@ -1034,7 +1034,7 @@ will allow us to push our generator forward and evaluate a new expression. While
 contrived, we can utilize Generators to write asynchronous code in a synchronous manner:
 
 ```javascript
-// Hiding asynchronousity with Generators
+// Hiding asynchronicity with Generators
 
 function request(url) {
     getJSON(url, function(response) {
