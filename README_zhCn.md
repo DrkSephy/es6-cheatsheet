@@ -965,7 +965,7 @@ var generator = sillyGenerator();
 我们能利用Generators来像书写同步代码一样书写异步代码。
 
 ```javascript
-// Hiding asynchronousity with Generators
+// Hiding asynchronicity with Generators
 
 function request(url) {
     getJSON(url, function(response) {
