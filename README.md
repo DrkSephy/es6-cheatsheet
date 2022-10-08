@@ -20,6 +20,7 @@ snippet examples for your day to day workflow. Contributions are welcome!
 - [Generators](#generators)
 - [Async Await](#async-await)
 - [Getter/Setter functions](#getter-and-setter-functions)
+- [Proxy](#proxy)
 - [License](#license)
 
 ## var versus let / const
@@ -1194,6 +1195,72 @@ person.fullName; // James Bond
 person.fullName = 'Bond 007';
 person.fullName; // Bond 007
 ```
+<sup>[(back to table of contents)](#table-of-contents)</sup>
+
+## Proxy
+Proxy is an object which intercept the get, set etc operations of another object and execute custom logic in the middle
+
+```javascript
+// user object to store information
+const _user = {
+    name: 'Himanshu',
+    age: 20
+}
+```
+**Example Requirement** => age should be a number and minimum of 18
+
+**Solution** => **Proxy** the set operation on object
+```javascript
+
+// custom validator, which intercept set operation on above object
+const validator = {
+  set(obj, prop, value) {
+    if (prop === 'age') {
+      if (!Number.isInteger(value)) {
+        throw new TypeError('The age is not an integer');
+      }
+      if (value < 18) {
+        throw new RangeError('Min age limit is 18');
+      }
+    }
+
+    // The default behavior to store the value
+    obj[prop] = value;
+
+    // Indicate success
+    return true;
+  }
+};
+
+// everywhere we should address this user proxied object for all operations
+const user = new Proxy(_user, validator)
+```
+### Test
+```javascript
+console.log(user.age) // 20
+user.age = 17 // throws RangeError
+user.age = 'test'// throws TypeError
+user.age = 24 // success
+console.log(user.age) // 24
+```
+
+**Note:** The both object gets updated whichever you update
+Example:
+```javascript
+_user.age = 10 // okay, since proxy set operation is not in picture, and both _user and user gets updated.
+console.log(_user.age) // 10
+console.log(user.age) // 10
+// That's why all operation should be done using proxy object only
+```
+### How is it useful?
+Proxy can help in following
+- Logging property access
+- Validating property upon set
+- Formatting the value before get or set
+- Sanitize the input
+- etc
+
+
 <sup>[(back to table of contents)](#table-of-contents)</sup>
 
 ## License
